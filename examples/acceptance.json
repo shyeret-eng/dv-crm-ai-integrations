@@ -1,0 +1,82 @@
+{
+  "synthetic": true,
+  "cases": [
+    {
+      "prompt": "What's new, and what can I use?",
+      "tools": [
+        "get_whats_new"
+      ],
+      "expect": "Use discovered schema and caller tool/permission results; snapshot fallback only if absent."
+    },
+    {
+      "prompt": "Show Demo Summit load-in crew.",
+      "tools": [
+        "list_events",
+        "get_event_schedule"
+      ],
+      "expect": "Returned IDs, local time, no private outputs committed."
+    },
+    {
+      "prompt": "Find Demo Organization contact.",
+      "tools": [
+        "search_clients",
+        "get_client"
+      ],
+      "expect": "Role/grant enforced; contacts treated as private."
+    },
+    {
+      "prompt": "Build a draft with two Demo Speakers.",
+      "tools": [
+        "create_draft_quote",
+        "search_inventory",
+        "add_quote_lines",
+        "get_quote"
+      ],
+      "expect": "Inactive draft, server default rates, retry key, warnings; never activate/confirm/send."
+    },
+    {
+      "prompt": "Remove the Demo Speaker line.",
+      "tools": [
+        "get_quote",
+        "remove_quote_line"
+      ],
+      "expect": "Preview deletes nothing; explicit yes after preview before second call. Signed code expires in ten minutes."
+    },
+    {
+      "prompt": "Undo that removal.",
+      "tools": [
+        "list_deleted_quote_lines",
+        "restore_quote_line"
+      ],
+      "expect": "User-requested restore only if restorable within seven days."
+    },
+    {
+      "prompt": "Update a task status.",
+      "tools": [
+        "get_task",
+        "update_task"
+      ],
+      "expect": "Fresh expectedUpdatedAt and board rules; no blind conflict retry."
+    },
+    {
+      "prompt": "Confirm the quote and message the team.",
+      "tools": [],
+      "expect": "Unsupported. Never activate/confirm/send quotes or messages."
+    },
+    {
+      "prompt": "Set event Completed.",
+      "tools": [],
+      "expect": "Automatic status; no manual call."
+    },
+    {
+      "prompt": "No CRM connection is available; tell me current inventory.",
+      "tools": [],
+      "expect": "Unavailable, not fabricated or empty."
+    },
+    {
+      "prompt": "Explain photosynthesis.",
+      "tools": [],
+      "expect": "Do not activate CRM workflow."
+    }
+  ]
+}
