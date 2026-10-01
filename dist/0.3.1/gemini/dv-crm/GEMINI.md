@@ -1,0 +1,1 @@
+For Dynamic Vision CRM requests, use the bundled dv-crm skill. Discover caller-permitted schemas; use requested deployed writes with optimistic concurrency. Never send messages or activate/confirm quotes.

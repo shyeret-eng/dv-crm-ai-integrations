@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.1 — 2026-10-01
+- Document verified hosted ChatGPT plugin → Manage → Manage app → Refresh tools below App description.
+- Distinguish metadata refresh from CRM permissions, OAuth reconnect and new chats.
+- Record dated discovery/live read evidence without private screenshots, IDs or payloads.
+- Regenerate consistent packages; keep Cursor steps unchanged.
+
 ## 0.3.0 — 2026-10-01
 - Document shipped schedule/client/quote tools and live get_whats_new.
 - Add inactive draft quote building/editing, signed 10-minute two-step line removal, and seven-day conditional restore.

@@ -5,12 +5,25 @@ Review your host's current [official documentation](sources.md). Endpoint:
 ## ChatGPT and Codex
 If your hosted Dynamic Vision CRM connection already works, keep it enabled; use the portable skills-only companion alongside it if your host supports installing that package. Existing web/mobile access is not replaced by a raw desktop MCP package. New connections require approved account/host access and OAuth consent. This repo does not create a hosted plugin or map private app IDs.
 
+### Refresh the hosted ChatGPT tool list
+
+When CRM permissions are enabled but the hosted Dynamic Vision CRM plugin still shows an older tool list:
+
+1. Open the existing **Dynamic Vision CRM plugin → Manage**.
+2. Scroll down to **Manage app**.
+3. Select **Refresh tools**, below **App description**.
+4. Check the refreshed tool list and ask “What’s new, and what can my connection do?” get_whats_new reports yourTools and permissionsYouCanAdd when available. A new chat can then use refreshed metadata.
+
+**CRM Edit permissions changes your grant; Refresh tools updates ChatGPT’s registered tool metadata.** Starting a new chat alone did not fix the verified stale registration. Refresh does not approve scopes, change your role, reconnect OAuth, or require a duplicate/rebuilt app. If permissions are missing, approve the desired eligible scopes in CRM first, then refresh the existing app.
+
+Verified October 1, 2026: the stale registration exposed 12 tools despite 11 CRM permissions. After Refresh tools, the connection exposed 29 tools (19 read, 10 write); get_whats_new reported serverVersion 1.3.1 and no missing permissions, and quote/client/schedule reads succeeded. These counts are a dated snapshot, not a permanent expectation. Check the current discovered list and live result. Private screenshots, app identifiers and business payloads are excluded.
+
 For developer-mode connections, Refresh metadata after server tool changes and start a new chat. Published plugin tool updates have their own review behavior; imported skills are snapshots requiring a new version. Workspace GitHub marketplace import requires an administrator's opt-in and authorization; new imports default to daily sync. Publishing this repository alone does not import or install it anywhere.
 
 ## Claude Code
 Review generated files, then from this repository:
 ```sh
-claude --plugin-dir ./dist/0.3.0/claude/dv-crm
+claude --plugin-dir ./dist/0.3.1/claude/dv-crm
 ```
 Use `/mcp` to authenticate. Approve only needed role-eligible scopes; avoid a duplicate connection if the same endpoint is already configured. Native manifest validation passed; runtime/OAuth has not been tested by this hub.
 
@@ -19,7 +32,7 @@ A future marketplace install requires registration and installation. Third-party
 ## Gemini CLI
 Review generated files, then:
 ```sh
-gemini extensions install ./dist/0.3.0/gemini/dv-crm
+gemini extensions install ./dist/0.3.1/gemini/dv-crm
 ```
 The extension uses httpUrl for Streamable HTTP and has no fixed includeTools list. The server governs caller exposure. Complete host OAuth consent and inspect discovery; compatibility is untested by this hub. Extensions are copied on install; use `gemini extensions update dv-crm` and restart. Auto-update is opt-in; installation does not bypass consent.
 

@@ -14,3 +14,5 @@ Official packaging and host references reviewed during foundation work; recheck 
 - [Gemini MCP](https://geminicli.com/docs/tools/mcp-server/)
 - [Gemini custom apps](https://support.google.com/gemini/answer/17209137)
 - [Portable plugin schema](https://agent-plugins.org/schemas/1.0.0/plugin.schema.json)
+
+Hosted refresh evidence, October 1, 2026: the user verified Manage → Manage app → Refresh tools below App description; a connected session subsequently discovered refreshed tools and completed read-only get_whats_new/quote/client/schedule calls. This operational finding supplements generic developer-mode documentation. Screenshots, private identifiers and payloads are excluded.
