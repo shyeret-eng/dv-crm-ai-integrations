@@ -1,0 +1,11 @@
+{
+  "version": "0.3.4",
+  "status": "local-review-candidate",
+  "schemaSha256": "0a4aad95ce337878ad38802ebf0daa3fde76abe3f65400c86bcbb1ec0b3ab883",
+  "sha256": {
+    "claude-0.3.4.zip": "c99fd584ae560680d33a625cff9bd44b88aeca14c1a41950201fc7ccaf83decf",
+    "gemini-0.3.4.zip": "871d34635c744333b44eb666a4621c3ba35e47785bd7ec06821abdb9045143af",
+    "portable-0.3.4.zip": "74b82170936b83440ae239c890b783f235ade09ff8fbdce8c87a9df912575cff",
+    "skill-0.3.4.zip": "5d1eea87b93b2534cbc66c01d7e05eea4bc64580813cbfbf25d2248373cdc296"
+  }
+}

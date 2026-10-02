@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.4 — 2026-10-02
+- Use the exact observed Create custom MCP server → Create as a plugin route; stop on absence/failure without alternate installation attempts.
+- Preserve OAuth/default advanced settings and personal trusted-server consent.
+- Record user-reported apparent setup success separately from unverified read/web/mobile checks.
+- Identify the canonical standalone skill archive without claiming attachment to the hosted app.
+
 ## 0.3.3 — 2026-10-02
 - Correct the first-time hosted path to the observed web Plugins → Add → Create MCP App flow.
 - Keep official developer-mode setup as an account-dependent alternative, without requiring a missing toggle.

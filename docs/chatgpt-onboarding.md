@@ -1,22 +1,32 @@
 # ChatGPT web/mobile onboarding and repair
 
-Updated October 2, 2026. Account eligibility and the cloud-registration capability must be checked in the recipient's chat; no universal automatic installer is promised.
+Updated October 2, 2026. Use the exact observed web route below. A recipient reported that this route appeared to work; a separate harmless read, new web chat, and mobile check have not yet been verified for that connection.
 
 ## Help teammates one step at a time
 
-Give only the next action in plain language, then wait for the teammate's result. Keep progress short. Put any endpoint or prompt they need to copy in a clearly labeled copy-paste box. Avoid technical explanations unless they are needed to resolve a blocker. Make manual sign-in and permission consent clear; never claim those steps happened automatically. If troubleshooting is needed, give a brief, safe report; offer an optional copyable report for an advisor, without credentials or callback query values.
+Give only the next action in plain language, then wait for the result. Keep progress short. Put inputs they need to copy in clearly labeled code boxes. Explain manual sign-in, permission consent and trusted-server risk honestly. Give technical diagnostics only when needed, briefly and without secrets; an optional copyable advisor report must exclude credentials, callback query values and business records.
 
-## Check availability first
+## Exact web setup
 
-First check whether this chat actually exposes a supported cloud-registration capability. Do not assume Plugin Creator is available because a prompt names it. Reuse an already working hosted connection when available. If the cloud tool is missing, do not repeat creation prompts, upload an MCP package, or create a placeholder. Use the direct web route below. If that UI is unavailable too, stop and report the account or workspace-policy blocker.
+Keep an already working hosted connection. For a new connection, use **Plugins → Add → Create custom MCP server → Create as a plugin** in ChatGPT's web browser UI. Do not assume this menu is available to every account.
 
-## Direct web setup: primary fallback
+**First action:** Open ChatGPT on the web and select **Plugins → Add**. Tell your helper whether **Create custom MCP server** appears. The helper waits for that answer before the next action.
 
-The successful hosted setup used ChatGPT in a web browser: **Plugins → Add → Create MCP App**. The saved result was labeled **Your cloud plugin** and offered **Continue connecting app**. A later inspection found no Developer mode toggle under either Plugins settings or Security and login, even though the saved app was labeled DEVELOPMENT. The app's development status therefore does not establish that a separate toggle must be enabled.
+Then guide the user through these actions individually:
 
-**First action:** Open ChatGPT in your web browser and select **Plugins**. Tell your helper whether you see **Add → Create MCP App**. Helpers should wait for that answer before giving the next step.
+1. Select **Create custom MCP server**.
+2. Enter the name below and a description such as “Access Dynamic Vision CRM within my approved permissions.”
+3. Enter the existing remote HTTPS Streamable HTTP endpoint below.
+4. Keep **OAuth** selected and leave **Advanced OAuth settings** at their defaults. Do not invent client IDs, secrets or authentication URLs.
+5. Read the trusted-server warning. The user decides whether to accept its checkbox personally.
+6. Select **Create as a plugin**. Follow installation/enabling and connection prompts; complete the user's own DV sign-in and OAuth permission consent personally.
+7. Inspect discovered tools and verify one harmless permitted read. Use get_whats_new only if available. Then verify a new web chat and the same-account phone separately.
 
-If that action is available, use it to connect the existing HTTPS Streamable HTTP endpoint, preserving its OAuth. Enter a clear name such as Dynamic Vision CRM, inspect the saved cloud-app label and discovered tools, and continue the app connection when prompted. Complete your own sign-in and permission consent. Installation/enabling and verification remain separate steps. Do not interpret merely creating the app as successful access.
+**Copy-paste name**
+
+```text
+Dynamic Vision CRM
+```
 
 **Copy-paste endpoint**
 
@@ -24,48 +34,43 @@ If that action is available, use it to connect the existing HTTPS Streamable HTT
 https://dynamic-vision-erp-rev101.vercel.app/api/mcp
 ```
 
-This path was observed in one account; it is not a universal UI or eligibility guarantee. If Add or Create MCP App is absent, report the missing control. Do not repeatedly direct someone to a Developer mode toggle they cannot find, or substitute a local package, tunnel, or server.
+**Stop rule:** If the menu is missing, creation fails, sign-in fails, or tools cannot be used, stop. Give one short blocker and the next needed evidence, such as the missing menu label or a redacted error. Do not attempt another installation route, a Developer-mode detour, a Plugin Creator prompt loop, an archive upload, a desktop package, CLI, localhost listener, tunnel or new server. Do not bypass browser security, replay OAuth codes or change production authentication.
 
-The [official developer-testing guide](https://developers.openai.com/plugins/deploy/connect-chatgpt) documents a separate account-dependent route through **Settings → Security and login → Developer mode**, then Plugins → plus → Connection → HTTPS endpoint. Offer that route only when the actual account exposes those controls. If neither web route is available, stop and report the account/policy blocker. Do not infer eligibility from the endpoint or repository alone.
-
-For a hosted plugin already available to the recipient, open its directory details and use the **plus** installation action, authenticate when prompted, then start a new chat. The directory has workspace and Personal sections when available. A working private plugin in another person's workspace is not automatic access for the recipient; public directory distribution requires its own review/publication. See [installation](https://learn.chatgpt.com/docs/plugins) and [workspace availability](https://learn.chatgpt.com/docs/enterprise/plugin-management).
-
-Existing hosted connection with stale tools: **Dynamic Vision CRM → Manage → Manage app → Refresh tools**, then a new chat. DV **My Preferences → AI Connections → Edit permissions** changes eligible feature permissions separately. Neither refresh nor a copied prompt bypasses consent or CRM account eligibility.
-
-[Official plugin documentation](https://learn.chatgpt.com/docs/plugins) describes general web/mobile plugin support for plugins available to your account, and excludes Desktop only plugins from mobile. This is platform support, not evidence that this individual connection has completed consent or works on a recipient's phone. Verify both surfaces separately.
+Only after the hosted read succeeds, show the exact earlier duplicate desktop-only DV entry and its proposed removal. Ask for confirmation before removing that one entry; preserve other plugins, files, grants and server code.
 
 ## Short repository reread prompt
 
 **Copy-paste prompt**
 
 ```text
-Read https://github.com/shyeret-eng/dv-crm-ai-integrations and its ChatGPT onboarding guide using the latest published revision. Help me connect Dynamic Vision CRM for ChatGPT web and phone. Give me only the next action in plain language, one step at a time; keep progress short and put needed copyable inputs in clearly labeled copy-paste boxes. Give technical diagnostics only when needed, briefly and without secrets. First check whether a supported cloud-registration tool is actually available in this chat. If not, first ask whether my web Plugins menu offers Add → Create MCP App, the observed successful route. Do not assume a Developer mode toggle exists or repeat Plugin Creator prompts. Stop if my account lacks the necessary UI or eligibility. Use the existing remote HTTPS MCP endpoint; do not install a desktop-only MCP package, CLI, local listener, tunnel, or new server. I will complete my own sign-in and consent. Verify a harmless read, then separately verify a new web chat and my phone. Leave the earlier desktop-only entry untouched until the hosted read works; show the exact duplicate and ask before removing it. Never expose credentials, write CRM records, send messages, or activate/confirm quotes.
+Read https://github.com/shyeret-eng/dv-crm-ai-integrations/blob/main/docs/chatgpt-onboarding.md. Guide me one simple action at a time through Plugins → Add → Create custom MCP server → Create as a plugin. Use the documented DV HTTPS endpoint and OAuth; label inputs I must copy. I will complete sign-in and consent. If this route is missing or fails, stop with one short blocker and the next evidence needed—no alternate installation attempts. Verify a harmless read, then web and phone separately. Ask before removing the exact duplicate desktop-only entry.
 ```
 
-Read the latest published revision. If the guide cannot be read, say so; do not pretend the connection instructions were verified.
-
-## Optional cloud registration when the tool is available
-
-Use the supported personal cloud-registration capability to connect the existing HTTPS Streamable HTTP endpoint https://dynamic-vision-erp-rev101.vercel.app/api/mcp, preserving hosting and OAuth. Reuse a working personal cloud connection; do not assume another person's workspace sharing gives you access. Return the actual link supplied by successful registration. Creation, installation/enabling and personal consent are separate steps. Package-upload create_plugin is not a substitute: raw MCP import remains desktop-only. Do not invent plugin IDs or links. Mark creation, installation, OAuth, read, web and mobile checks independently; pending is not success.
+If the guide cannot be read, say so; do not pretend its instructions were verified.
 
 ## Acceptance record
 
-Record pass, fail, or pending for each item, without business payloads or tokens:
+Record pass, fail or pending, without live payloads or tokens:
 
-- Account eligibility checked; supported cloud tool or direct web UI route identified.
-- Existing hosted connection reused, or exactly one personal cloud connection created with its real returned link.
-- Plugin installed/enabled separately from creation.
-- Recipient completed their own DV sign-in and OAuth consent.
+- Exact menu/form available and cloud connection created or existing connection reused.
+- Plugin installed/enabled and user's own OAuth consent completed.
 - Discovered tools and one harmless read verified.
-- New ordinary ChatGPT web conversation verified.
-- Same-account mobile conversation verified.
-- Exact duplicate local entry identified; removal separately confirmed and verified.
+- New web chat verified.
+- Same-account mobile chat verified.
+- Exact duplicate identified and any removal separately confirmed.
 
-The recipient's hosted flow has not been tested here. The redacted browser error shows an HTTP loopback /callback navigation blocked by HTTPS-only browsing (WebKit 305). This identifies the navigation failure in the desktop-only client flow; it does not diagnose a production OAuth fault. The CRM MCP endpoint was already remote. Do not disable browser security, replay callback codes, rewrite URLs, or change production OAuth on this evidence. Never record callback query strings or fragments.
+A user report that setup “appeared to work” does not prove all these checks. [Official plugin documentation](https://learn.chatgpt.com/docs/plugins) describes general web/mobile support for plugins available to your account; Desktop only plugins are excluded from mobile. Verify this particular connection independently.
+
+## Skills are separate from the connection
+
+Creating a custom MCP connection discovers tools; it does not automatically import this repository's canonical skill. The source is [skills/dv-crm/SKILL.md](../skills/dv-crm/SKILL.md), with its adjacent references. The self-contained skill archive is [skill-0.3.4.zip](../dist/0.3.4/skill-0.3.4.zip). Preserve those references when importing; do not copy only the main file.
+
+A supported skill-attachment control on this private hosted app has not been verified. Do not claim the archive was attached or upload a full MCP plugin to replace the cloud connection. [Official skills documentation](https://developers.openai.com/plugins/build/skills) supports packaged skill upload during submission or MCP skill import through Scan Tools in the submission portal; imports are versioned snapshots. That public submission workflow is not proof of an Add skill control on a private custom app. Inspect the actual supported owner UI before choosing an attachment step. No app modification or new MCP resource deployment is performed by this repository.
 
 ## Evidence and boundaries
 
-The earlier guide assumed an installed hosted connection and omitted its successful creation path. Raw MCP package import is desktop-only even with an HTTPS endpoint. Workspace sharing does not cover teammates outside that workspace. Repository access grants neither ChatGPT plugin access nor DV permissions. See [workspace plugin management](https://learn.chatgpt.com/docs/enterprise/plugin-management), [plugin installation](https://learn.chatgpt.com/docs/plugins), and [developer connection testing](https://developers.openai.com/plugins/deploy/connect-chatgpt).
+The CRM server was already remote. The earlier desktop-only client flow used an HTTP loopback /callback navigation that HTTPS-only browsing blocked (WebKit 305). This explains that browser navigation failure, not a production OAuth fault. Never record callback query strings or fragments.
 
-The account package-upload create_plugin flow is not a substitute for the cloud-registration capability requested here. Cloud-registration capabilities differ between chats and must be checked at runtime. The successful setup was performed through the browser UI, not by assuming Plugin Creator tool availability. This document supplies the observed web path when that capability is unavailable; no private app identifiers or inferred links are included.
+The current recipient screenshots establish Create custom MCP server and Create as a plugin labels, OAuth/default advanced settings, and trusted-server consent. Earlier account-specific Create MCP App observations are historical, not an alternate installation instruction. Neither repository access nor another person's private workspace plugin grants CRM access. Raw MCP package import is desktop-only even with HTTPS: see [workspace plugin management](https://learn.chatgpt.com/docs/enterprise/plugin-management). [Official developer-testing documentation](https://developers.openai.com/plugins/deploy/connect-chatgpt) provides platform context; its alternate route is not prescribed by this guide.
 
+Existing hosted connection with stale tools: **Dynamic Vision CRM → Manage → Manage app → Refresh tools**, then a new chat. DV **My Preferences → AI Connections → Edit permissions** changes eligible feature permissions separately. Refresh does not bypass consent or account eligibility.

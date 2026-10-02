@@ -3,7 +3,7 @@ Review your host's current [official documentation](sources.md). Endpoint:
 `https://dynamic-vision-erp-rev101.vercel.app/api/mcp`
 
 ## ChatGPT and Codex
-For ordinary ChatGPT web/mobile, follow [hosted onboarding](chatgpt-onboarding.md) first. Keep a working hosted connection. New teammates can register their own eligible cloud connection; workspace sharing alone does not cover teammates outside that workspace. Creation, installation and OAuth consent are separate steps. Check actual cloud-tool availability first. When it is missing, check Plugins → Add → Create MCP App, the observed successful browser route, instead of repeated creation prompts. Do not assume a Developer mode toggle exists. Stop if the account lacks that UI or required access. Do not substitute the CLI packages below.
+For ordinary ChatGPT web/mobile, follow [hosted onboarding](chatgpt-onboarding.md): Plugins → Add → Create custom MCP server → Create as a plugin, with the existing HTTPS endpoint and OAuth. Keep an already working hosted connection. If the exact creation route is missing or fails, stop with one short blocker and the next evidence needed; do not try another installation, Developer-mode detour or CLI package. Creation, installation, consent and recipient web/mobile verification are separate. Workspace sharing does not automatically cover teammates outside that workspace.
 
 The CRM server is already remote. A desktop-only client connection to it does not mean the CRM server is local. Any imported package declaring mcp.json or .mcp.json is desktop-only even with HTTPS; this repository's portable package is a skills-only companion and creates no hosted connection. See [official workspace rules](https://learn.chatgpt.com/docs/enterprise/plugin-management).
 
@@ -25,7 +25,7 @@ For developer-mode connections, Refresh metadata after server tool changes and s
 ## Claude Code
 Review generated files, then from this repository:
 ```sh
-claude --plugin-dir ./dist/0.3.3/claude/dv-crm
+claude --plugin-dir ./dist/0.3.4/claude/dv-crm
 ```
 Use `/mcp` to authenticate. Approve only needed role-eligible scopes; avoid a duplicate connection if the same endpoint is already configured. Native manifest validation passed; runtime/OAuth has not been tested by this hub.
 
@@ -34,7 +34,7 @@ A future marketplace install requires registration and installation. Third-party
 ## Gemini CLI
 Review generated files, then:
 ```sh
-gemini extensions install ./dist/0.3.3/gemini/dv-crm
+gemini extensions install ./dist/0.3.4/gemini/dv-crm
 ```
 The extension uses httpUrl for Streamable HTTP and has no fixed includeTools list. The server governs caller exposure. Complete host OAuth consent and inspect discovery; compatibility is untested by this hub. Extensions are copied on install; use `gemini extensions update dv-crm` and restart. Auto-update is opt-in; installation does not bypass consent.
 
