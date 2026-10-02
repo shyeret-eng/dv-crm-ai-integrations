@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.2 — 2026-10-02
+- Add hosted-first ChatGPT onboarding, actual tool-availability gates, direct web fallback, and a short repository reread prompt.
+- Separate desktop-only client setup from the existing remote CRM server and HTTP loopback callback failure.
+- Document supported UI fallback, independent installation/consent, and pending web/mobile acceptance checks.
+- Add one-step plain-language teammate guidance and clearly labeled copy-paste inputs.
+- Regenerate packages; no server, OAuth, plugin, or grant changes.
+
 ## 0.3.1 — 2026-10-01
 - Document verified hosted ChatGPT plugin → Manage → Manage app → Refresh tools below App description.
 - Distinguish metadata refresh from CRM permissions, OAuth reconnect and new chats.

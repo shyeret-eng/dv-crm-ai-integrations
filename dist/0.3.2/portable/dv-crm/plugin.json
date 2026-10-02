@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "dv-crm",
+  "version": "0.3.2",
+  "description": "Use Dynamic Vision CRM for lookups and requested event, task and inactive draft quote work within caller permissions.",
+  "author": {
+    "name": "Dynamic Vision"
+  }
+}

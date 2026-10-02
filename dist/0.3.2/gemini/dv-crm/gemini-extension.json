@@ -1,0 +1,11 @@
+{
+  "name": "dv-crm",
+  "version": "0.3.2",
+  "description": "Use Dynamic Vision CRM for lookups and requested event, task and inactive draft quote work within caller permissions.",
+  "contextFileName": "GEMINI.md",
+  "mcpServers": {
+    "dv-crm": {
+      "httpUrl": "https://dynamic-vision-erp-rev101.vercel.app/api/mcp"
+    }
+  }
+}
