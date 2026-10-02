@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "dv-crm": {
+      "type": "http",
+      "url": "https://dynamic-vision-erp-rev101.vercel.app/api/mcp"
+    }
+  }
+}

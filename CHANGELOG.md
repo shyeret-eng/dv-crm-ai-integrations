@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.3 — 2026-10-02
+- Correct the first-time hosted path to the observed web Plugins → Add → Create MCP App flow.
+- Keep official developer-mode setup as an account-dependent alternative, without requiring a missing toggle.
+- Retain one-step guidance, own sign-in/consent, and recipient web/mobile verification gates.
+
 ## 0.3.2 — 2026-10-02
 - Add hosted-first ChatGPT onboarding, actual tool-availability gates, direct web fallback, and a short repository reread prompt.
 - Separate desktop-only client setup from the existing remote CRM server and HTTP loopback callback failure.
