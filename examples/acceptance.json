@@ -77,6 +77,37 @@
       "prompt": "Explain photosynthesis.",
       "tools": [],
       "expect": "Do not activate CRM workflow."
+    },
+    {
+      "prompt": "Send 5 Demo Lights to Demo Vendor A and 5 to Demo Vendor B.",
+      "tools": [
+        "get_event_equipment",
+        "set_equipment_sources"
+      ],
+      "expect": "Ask which vendor when unclear; never create vendors; over-allocation preview needs an explicit yes before the second call."
+    },
+    {
+      "prompt": "How is labor tracking on Demo Summit?",
+      "tools": [
+        "get_labor_budget"
+      ],
+      "expect": "Explain gap by role, day and person; labor.finance roles only."
+    },
+    {
+      "prompt": "Who is free Friday for A1 and can you assign them?",
+      "tools": [
+        "find_available_crew",
+        "assign_shift"
+      ],
+      "expect": "Never guess availability; time-off confirmation needs an explicit yes; state that no invite was sent."
+    },
+    {
+      "prompt": "Approve the pending Demo task request.",
+      "tools": [
+        "get_task",
+        "review_task_request"
+      ],
+      "expect": "Preview first, explicit yes from the person, then the second call with the returned code; never confirm alone."
     }
   ]
 }

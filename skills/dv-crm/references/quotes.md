@@ -16,4 +16,6 @@ The signed code lasts ten minutes. An expired/tampered code or changed line requ
 ## Restore within seven days
 list_deleted_quote_lines takes quoteId and returns eligible recent deletions with deletedLineId and restorable status. For a user-requested restore, restore_quote_line takes the returned deletedLineId. Restore requires the quote still be an inactive draft, an available line ID, valid referenced items and a recoverable deletion record. It restores the previous line identity/fields/order and issues a new updatedAt. The seven-day window is conditional recovery, not a guarantee; read the returned result.
 
+For profit or margin, read get_quote profitAndLoss (admins only; never estimate it for others).
+
 Never activate, confirm, send, or change quote status through this workflow. Never send messages or calendar invites.

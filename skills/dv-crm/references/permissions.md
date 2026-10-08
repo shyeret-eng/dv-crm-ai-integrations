@@ -6,3 +6,5 @@ Then refresh the AI client: **Cursor** switch the MCP off, wait about 30 seconds
 OAuth consent initially approves scopes. Role eligibility grants nothing by itself. DV permission editing explicitly changes the owner's grant, but host policies/cached tool lists can still limit availability. Ask get_whats_new for yourTools and permissionsYouCanAdd; do not promise silent access expansion.
 
 CRM Edit permissions changes approved scopes; hosted ChatGPT Refresh tools updates registered metadata. Refresh does not grant scopes, change role, reconnect OAuth, or require a duplicate/rebuilt app. Check discovery and get_whats_new; tool counts can change. Developer-mode connections use their connection Refresh flow.
+
+New permissions (equipment.read, equipment.write, labor.finance, schedule.write) are not added to existing connections automatically. Open Edit permissions, tick them, save, then refresh the AI app; no reconnect is needed. get_whats_new lists permissions you can add and how to enable them. Some need a companion permission: equipment.write needs equipment.read, and schedule.write needs schedule.read.

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.0 — 2026-10-07
+- Refresh to production main, CRM AI server 1.11.0: 40 tools, 15 scopes.
+- Add request_task_edit and review_task_request (approvers only; preview, explicit yes, then confirmation code).
+- Add get_event_equipment (equipment.read) and set_equipment_sources (equipment.write; vendor choice and over-allocation confirmation).
+- Add get_labor_budget and list_labor_budgets (labor.finance); get_quote profitAndLoss (admins only); inventory broken/usable counts and unit weight.
+- Add list_staffing_gaps, find_available_crew, and assign_shift, create_shifts, update_shift_times (schedule.write; invites are never sent).
+- Document write limits per hour and enabling new permissions in Edit permissions without reconnecting.
+- Update the role/tool matrix, workflows, synthetic examples and release checks.
+
 ## 0.3.4 — 2026-10-02
 - Use the exact observed Create custom MCP server → Create as a plugin route; stop on absence/failure without alternate installation attempts.
 - Preserve OAuth/default advanced settings and personal trusted-server consent.

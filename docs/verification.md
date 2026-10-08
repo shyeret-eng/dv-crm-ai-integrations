@@ -1,5 +1,5 @@
 # Verification and public audit · 0.3.1
-Source checks on October 1, 2026 matched 29 registered tools, 11 scopes and five role eligibility rows. Production source was read without changing its checkout. Live deployment is owner-reported; no business payloads were queried.
+Source checks on October 7, 2026 (server 1.11.0) matched 40 registered tools, 15 scopes and five role eligibility rows. Production source was read without changing its checkout. Live deployment is owner-reported; no business payloads were queried.
 
 Passed local schema/link/package parity checks, official portable JSON Schema validation, strict native Claude validation, reproducible ZIP/hash/path tests and unsupported-tool artifact checks. Package installation/OAuth and live write/removal/restore tests were not performed by this hub. A connected session verified hosted ChatGPT Refresh tools, read-only get_whats_new (server 1.3.1), and quote/client/schedule reads. This does not verify every generated client package.
 

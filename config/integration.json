@@ -13,7 +13,11 @@
     "schedule.read",
     "quotes.read",
     "quotes.write",
-    "clients.read"
+    "clients.read",
+    "equipment.read",
+    "equipment.write",
+    "labor.finance",
+    "schedule.write"
   ],
   "tools": {
     "list_events": "events.read",
@@ -44,7 +48,18 @@
     "remove_quote_line": "quotes.write",
     "list_deleted_quote_lines": "quotes.write",
     "restore_quote_line": "quotes.write",
-    "get_whats_new": "events.read"
+    "get_whats_new": "events.read",
+    "request_task_edit": "tasks.write",
+    "review_task_request": "tasks.write",
+    "get_event_equipment": "equipment.read",
+    "set_equipment_sources": "equipment.write",
+    "get_labor_budget": "labor.finance",
+    "list_labor_budgets": "labor.finance",
+    "list_staffing_gaps": "schedule.read",
+    "find_available_crew": "schedule.read",
+    "assign_shift": "schedule.write",
+    "create_shifts": "schedule.write",
+    "update_shift_times": "schedule.write"
   },
   "toolKinds": {
     "list_events": "read",
@@ -75,7 +90,18 @@
     "remove_quote_line": "quoteWrite",
     "list_deleted_quote_lines": "read",
     "restore_quote_line": "quoteWrite",
-    "get_whats_new": "read"
+    "get_whats_new": "read",
+    "request_task_edit": "write",
+    "review_task_request": "write",
+    "get_event_equipment": "read",
+    "set_equipment_sources": "quoteWrite",
+    "get_labor_budget": "read",
+    "list_labor_budgets": "read",
+    "list_staffing_gaps": "read",
+    "find_available_crew": "read",
+    "assign_shift": "scheduleWrite",
+    "create_shifts": "scheduleWrite",
+    "update_shift_times": "scheduleWrite"
   },
   "roleEligibleScopes": {
     "admin": [
@@ -89,7 +115,11 @@
       "schedule.read",
       "quotes.read",
       "quotes.write",
-      "clients.read"
+      "clients.read",
+      "equipment.read",
+      "equipment.write",
+      "labor.finance",
+      "schedule.write"
     ],
     "manager": [
       "events.read",
@@ -101,7 +131,11 @@
       "schedule.read",
       "quotes.read",
       "quotes.write",
-      "clients.read"
+      "clients.read",
+      "equipment.read",
+      "equipment.write",
+      "labor.finance",
+      "schedule.write"
     ],
     "manager_sensitive": [
       "events.read",
@@ -113,7 +147,11 @@
       "schedule.read",
       "quotes.read",
       "quotes.write",
-      "clients.read"
+      "clients.read",
+      "equipment.read",
+      "equipment.write",
+      "labor.finance",
+      "schedule.write"
     ],
     "warehouse_manager": [
       "events.read",
@@ -122,7 +160,8 @@
       "inventory.read",
       "attention.read",
       "schedule.read",
-      "quotes.read"
+      "quotes.read",
+      "equipment.read"
     ],
     "user": [
       "events.read",
@@ -132,7 +171,7 @@
     ]
   },
   "evidence": {
-    "reviewed": "2026-10-01",
-    "source": "Production main inspected through non-mutating Git reads; deployment is user-reported live. No live CRM payloads queried."
+    "reviewed": "2026-10-07",
+    "source": "Production main (MCP server 1.11.0) inspected through non-mutating Git reads; deployment is user-reported live. No live CRM payloads queried."
   }
 }

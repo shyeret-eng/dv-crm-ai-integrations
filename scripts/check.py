@@ -11,7 +11,7 @@ def version():
 def check(schema=False, generated=True):
     ver = version()
     cfg = json.loads((ROOT / 'config/integration.json').read_text())
-    assert len(cfg['scopes']) == 11 and len(cfg['tools']) == 29
+    assert len(cfg['scopes']) == 15 and len(cfg['tools']) == 40
     assert set(cfg['tools'].values()) == set(cfg['scopes'])
     assert cfg['tools']['get_whats_new'] == 'events.read'
     assert cfg['tools']['remove_quote_line'] == 'quotes.write'
@@ -19,6 +19,8 @@ def check(schema=False, generated=True):
     assert all('activity.read' not in scopes for role, scopes in cfg['roleEligibleScopes'].items() if role != 'admin')
     assert 'quotes.read' in cfg['roleEligibleScopes']['warehouse_manager']
     assert 'quotes.write' not in cfg['roleEligibleScopes']['warehouse_manager']
+    assert 'equipment.read' in cfg['roleEligibleScopes']['warehouse_manager']
+    assert all(not {'equipment.write','labor.finance','schedule.write'} & set(cfg['roleEligibleScopes'][r]) for r in ['warehouse_manager','user'])
     assert cfg['endpoint'].startswith('https://')
     skill = ROOT / 'skills/dv-crm/SKILL.md'
     content = skill.read_text()
