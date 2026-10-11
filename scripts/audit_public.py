@@ -32,7 +32,7 @@ def scan(name,data,depth=0):
  if name.endswith('scripts/audit_public.py'):return
  for label,pattern in PATTERNS.items():
   for match in re.finditer(pattern,text):
-   if label=='email address' and match.group(0).endswith('@users.noreply.github.com'):continue
+   if label=='email address' and (match.group(0).endswith('@users.noreply.github.com') or match.group(0)=='noreply@anthropic.com'):continue
    raise ValueError(label+' found in '+name+' (value suppressed)')
 
 def git(*args):
