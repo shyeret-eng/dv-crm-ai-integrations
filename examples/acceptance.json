@@ -108,6 +108,15 @@
         "review_task_request"
       ],
       "expect": "Preview first, explicit yes from the person, then the second call with the returned code; never confirm alone."
+    },
+    {
+      "prompt": "Create the Demo Summit event for Demo Organization at Demo Hall on October 20, 9 to 5.",
+      "tools": [
+        "search_clients",
+        "search_venues",
+        "create_event"
+      ],
+      "expect": "Stop and ask the person to add a missing client or venue in the CRM; never create either. Preview and possible duplicates first, explicit yes, then the second call with the code and a requestKey. Event starts as Created, nothing is sent."
     }
   ]
 }

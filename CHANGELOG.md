@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0 — 2026-10-10
+- Refresh to production main, CRM AI server 1.14.0: 42 tools, 16 scopes.
+- Add create_event and search_venues (events.create; admins only for now). The client and venue must already exist; the AI never creates either and asks the person to add a missing one in the CRM.
+- create_event is always two steps: preview with possible duplicates, the person's explicit yes, then confirmationCode and requestKey. The event starts as Created, is never confirmed, nothing is sent to clients or crew, bookkeeping gets the CRM's usual new-job alert, and one event can be created per person per hour.
+- Document 1.12-1.13: invalid shift hours are refused; labor budget and quote actual labor use paid hours; Needs Attention card transactions follow each card's start date; dismissed Old Westbury requests leave attention; task requests notify reviewers in the Team app.
+- Update the role/tool matrix, permissions, synthetic example and release checks.
+
 ## 0.4.0 — 2026-10-07
 - Refresh to production main, CRM AI server 1.11.0: 40 tools, 15 scopes.
 - Add request_task_edit and review_task_request (approvers only; preview, explicit yes, then confirmation code).

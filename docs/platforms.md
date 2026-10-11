@@ -25,7 +25,7 @@ For developer-mode connections, Refresh metadata after server tool changes and s
 ## Claude Code
 Review generated files, then from this repository:
 ```sh
-claude --plugin-dir ./dist/0.4.0/claude/dv-crm
+claude --plugin-dir ./dist/0.5.0/claude/dv-crm
 ```
 Use `/mcp` to authenticate. Approve only needed role-eligible scopes; avoid a duplicate connection if the same endpoint is already configured. Native manifest validation passed; runtime/OAuth has not been tested by this hub.
 
@@ -34,7 +34,7 @@ A future marketplace install requires registration and installation. Third-party
 ## Gemini CLI
 Review generated files, then:
 ```sh
-gemini extensions install ./dist/0.4.0/gemini/dv-crm
+gemini extensions install ./dist/0.5.0/gemini/dv-crm
 ```
 The extension uses httpUrl for Streamable HTTP and has no fixed includeTools list. The server governs caller exposure. Complete host OAuth consent and inspect discovery; compatibility is untested by this hub. Extensions are copied on install; use `gemini extensions update dv-crm` and restart. Auto-update is opt-in; installation does not bypass consent.
 

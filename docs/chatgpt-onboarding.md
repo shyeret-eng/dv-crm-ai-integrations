@@ -63,7 +63,7 @@ A user report that setup “appeared to work” does not prove all these checks.
 
 ## Skills are separate from the connection
 
-Creating a custom MCP connection discovers tools; it does not automatically import this repository's canonical skill. The source is [skills/dv-crm/SKILL.md](../skills/dv-crm/SKILL.md), with its adjacent references. The self-contained skill archive is [skill-0.4.0.zip](../dist/0.4.0/skill-0.4.0.zip). Preserve those references when importing; do not copy only the main file.
+Creating a custom MCP connection discovers tools; it does not automatically import this repository's canonical skill. The source is [skills/dv-crm/SKILL.md](../skills/dv-crm/SKILL.md), with its adjacent references. The self-contained skill archive is [skill-0.5.0.zip](../dist/0.5.0/skill-0.5.0.zip). Preserve those references when importing; do not copy only the main file.
 
 A supported skill-attachment control on this private hosted app has not been verified. Do not claim the archive was attached or upload a full MCP plugin to replace the cloud connection. [Official skills documentation](https://developers.openai.com/plugins/build/skills) supports packaged skill upload during submission or MCP skill import through Scan Tools in the submission portal; imports are versioned snapshots. That public submission workflow is not proof of an Add skill control on a private custom app. Inspect the actual supported owner UI before choosing an attachment step. No app modification or new MCP resource deployment is performed by this repository.
 

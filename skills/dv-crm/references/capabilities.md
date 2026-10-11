@@ -1,5 +1,5 @@
-# Capability snapshot · October 7, 2026
-MCP server 1.11.0, 40 tools, 15 scopes. Verified against production main source; live deployment is reported by the owner. No live records were queried for this guide. Discovered caller schemas are authoritative.
+# Capability snapshot · October 10, 2026
+MCP server 1.14.0, 42 tools, 16 scopes. Verified against production main source; live deployment is reported by the owner. No live records were queried for this guide. Discovered caller schemas are authoritative.
 
 | Tools | Scope |
 |---|---|
@@ -18,18 +18,19 @@ MCP server 1.11.0, 40 tools, 15 scopes. Verified against production main source;
 | set_equipment_sources | equipment.write |
 | get_labor_budget, list_labor_budgets | labor.finance |
 | assign_shift, create_shifts, update_shift_times | schedule.write |
+| create_event, search_venues | events.create |
 
 ## Role eligibility
 
 All five roles can hold events.read, tasks.read, tasks.write, attention.read; this includes get_whats_new. Additional scopes:
 
-| Role | events.status | activity.read | inventory.read | schedule.read | quotes.read | quotes.write | clients.read | equipment.read | equipment.write | labor.finance | schedule.write |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| admin | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
-| manager | Yes | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
-| manager_sensitive | Yes | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
-| warehouse_manager | No | No | Yes | Yes | Yes | No | No | Yes | No | No | No |
-| user | No | No | No | No | No | No | No | No | No | No | No |
+| Role | events.status | activity.read | inventory.read | schedule.read | quotes.read | quotes.write | clients.read | equipment.read | equipment.write | labor.finance | schedule.write | events.create |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| admin | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
+| manager | Yes | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | No |
+| manager_sensitive | Yes | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | No |
+| warehouse_manager | No | No | Yes | Yes | Yes | No | No | Yes | No | No | No | No |
+| user | No | No | No | No | No | No | No | No | No | No | No | No |
 
 Eligibility is not authorization: AI access must be enabled, the connection active, and scope approved. Server discovery and every call enforce the current role/grant. The hub neither enables users nor changes access.
 
@@ -41,7 +42,11 @@ Schedules expose shifts, venue-local times, role assignments and booking status;
 
 equipment.read shows each item's In-House, vendor and unassigned units, shortages and saved logistics, never prices or vendor contacts. equipment.write (set_equipment_sources) splits units between In-House, existing vendors and not assigned; the person chooses among unclear vendor names, vendors are never created, and over-allocation needs a confirmation. labor.finance (get_labor_budget, list_labor_budgets) shows labor budget against scheduled cost, including crew pay rates, never contact, tax or payment details.
 
-## Write limits per hour
-Tasks, approvals and event status: 30 per connection, 60 per person. Shift changes, quote building and equipment sources: 60 per connection, 120 per person. Previews that change nothing do not count as writes.
+events.create (create_event, search_venues) is for admins only for now; it also needs events.read, and clients.read helps find the client. create_event needs an existing client (search_clients) and venue (search_venues) and never creates either: if one is missing, stop and ask the person to add it in the CRM. It is always two steps: the first call writes nothing and returns a preview, possible duplicates (same client or venue on the same days) and a confirmationCode; only after the person's explicit yes, call again with the same input, the code and a requestKey. The event starts as Created and is never confirmed; nothing is sent to clients or crew. Bookkeeping receives the CRM's usual new-job alert (tell the person if bookkeepingAlert is failed, partial or uncertain). Day times are local to the venue; search_venues returns id, name, city and state only.
 
-Activity dates use New York (up to seven days); inventory ranges support up to ten IDs/31 days. Paginated lists and Needs Attention counts may exceed displayed samples. Reads can record logs and reconcile statuses internally; inventory reads do not reserve stock.
+## Write limits per hour
+Tasks, approvals and event status: 30 per connection, 60 per person. Shift changes, quote building and equipment sources: 60 per connection, 120 per person. Previews that change nothing do not count as writes. Event creation: one event per person per hour; previews and refused attempts do not count.
+
+Activity dates use New York (up to seven days); inventory ranges support up to ten IDs/31 days. Paginated lists and Needs Attention counts may exceed displayed samples. Shift hours must be valid before staffing: invalid windows are refused, and find_available_crew reports crew blocked by an invalid assigned window. Labor budget and quote actual labor use paid hours (minimum call, shifts up to 1 hour apart joined, overtime, double time and flat day rates), so cost is not always hours times rate. Needs Attention card transaction counts follow each card's start date, and Old Westbury requests dismissed by an administrator no longer count as pending attention. A task request or task edit request also notifies reviewers in the Team app.
+
+Reads can record logs and reconcile statuses internally; inventory reads do not reserve stock.

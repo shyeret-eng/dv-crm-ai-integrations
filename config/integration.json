@@ -17,7 +17,8 @@
     "equipment.read",
     "equipment.write",
     "labor.finance",
-    "schedule.write"
+    "schedule.write",
+    "events.create"
   ],
   "tools": {
     "list_events": "events.read",
@@ -59,7 +60,9 @@
     "find_available_crew": "schedule.read",
     "assign_shift": "schedule.write",
     "create_shifts": "schedule.write",
-    "update_shift_times": "schedule.write"
+    "update_shift_times": "schedule.write",
+    "create_event": "events.create",
+    "search_venues": "events.create"
   },
   "toolKinds": {
     "list_events": "read",
@@ -101,7 +104,9 @@
     "find_available_crew": "read",
     "assign_shift": "scheduleWrite",
     "create_shifts": "scheduleWrite",
-    "update_shift_times": "scheduleWrite"
+    "update_shift_times": "scheduleWrite",
+    "create_event": "eventCreate",
+    "search_venues": "read"
   },
   "roleEligibleScopes": {
     "admin": [
@@ -119,7 +124,8 @@
       "equipment.read",
       "equipment.write",
       "labor.finance",
-      "schedule.write"
+      "schedule.write",
+      "events.create"
     ],
     "manager": [
       "events.read",
@@ -171,7 +177,7 @@
     ]
   },
   "evidence": {
-    "reviewed": "2026-10-07",
-    "source": "Production main (MCP server 1.11.0) inspected through non-mutating Git reads; deployment is user-reported live. No live CRM payloads queried."
+    "reviewed": "2026-10-10",
+    "source": "Production main (MCP server 1.14.0) inspected through non-mutating Git reads; deployment is user-reported live. No live CRM payloads queried."
   }
 }

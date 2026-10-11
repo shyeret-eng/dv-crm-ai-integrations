@@ -1,9 +1,9 @@
 # Dynamic Vision CRM · AI integrations
-Connect your AI to Dynamic Vision CRM and use the same short workflow across clients. This public repository contains setup guides, a canonical skill, synthetic examples, and local review packages. **Version 0.4.0 · updated October 7, 2026 (CRM AI server 1.11.0).**
+Connect your AI to Dynamic Vision CRM and use the same short workflow across clients. This public repository contains setup guides, a canonical skill, synthetic examples, and local review packages. **Version 0.5.0 · updated October 10, 2026 (CRM AI server 1.14.0).**
 
-Your connection uses your own CRM permissions. This repository grants no access. Current capabilities include event/task lookup and permitted writes, task edit requests and approvals, inventory availability, Needs Attention, schedules, staffing gaps and available crew, shift and crew changes, equipment sources, labor budget, clients, quote reading (profit for admins) and draft quote building/editing/removal/restore. Activity history is admin-only. Finalize quotes yourself in the CRM; AI never activates, confirms, or sends them, and never sends crew invites. Previewed actions (removals, approvals, over-allocation, time-off overrides) always show the preview and wait for your yes.
+Your connection uses your own CRM permissions. This repository grants no access. Current capabilities include event/task lookup and permitted writes, task edit requests and approvals, inventory availability, Needs Attention, schedules, staffing gaps and available crew, shift and crew changes, equipment sources, labor budget, clients, quote reading (profit for admins) draft quote building/editing/removal/restore, and (admins only for now) creating events for an existing client and venue. Activity history is admin-only. Finalize quotes yourself in the CRM; AI never activates, confirms, or sends them, and never sends crew invites. A new event starts as Created and is never confirmed or sent to clients or crew. Previewed actions (removals, approvals, over-allocation, time-off overrides, event creation) always show the preview and wait for your yes.
 
-New permissions (equipment.write, schedule.write, labor.finance, equipment.read) are turned on in Edit permissions below, with no reconnect.
+New permissions (equipment.write, schedule.write, labor.finance, equipment.read, events.create) are turned on in Edit permissions below, with no reconnect.
 
 ## Get started
 
@@ -17,7 +17,7 @@ See the [role/tool matrix](skills/dv-crm/references/capabilities.md), [draft quo
 
 ## Packages and checks
 
-Review/download files under [dist/0.4.0](dist/0.4.0/release-index.json). Portable is skills-only; Claude Code and Gemini CLI packages use the existing MCP endpoint. Host setup, OAuth approval, and tool discovery are still required. Package installation/OAuth tests were not performed by this repo; hosted ChatGPT refresh and subsequent live reads were verified in a connected session.
+Review/download files under [dist/0.5.0](dist/0.5.0/release-index.json). Portable is skills-only; Claude Code and Gemini CLI packages use the existing MCP endpoint. Host setup, OAuth approval, and tool discovery are still required. Package installation/OAuth tests were not performed by this repo; hosted ChatGPT refresh and subsequent live reads were verified in a connected session.
 
 ```sh
 python3 scripts/release.py
@@ -26,6 +26,6 @@ python3 -m unittest discover -s tests
 python3 scripts/audit_public.py
 ```
 
-For official portable manifest schema validation, install requirements-dev.txt in a local virtual environment and run `scripts/check.py --schema`. If Claude Code is installed, run `claude plugin validate --strict dist/0.4.0/claude/dv-crm`.
+For official portable manifest schema validation, install requirements-dev.txt in a local virtual environment and run `scripts/check.py --schema`. If Claude Code is installed, run `claude plugin validate --strict dist/0.5.0/claude/dv-crm`.
 
 [Release/update behavior](docs/releases.md) · [Changelog](CHANGELOG.md) · [Sources](docs/sources.md) · [Public audit](docs/verification.md).
