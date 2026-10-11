@@ -53,11 +53,13 @@ def run():
   # Includes unreachable objects: old private blobs must not enter publication.
   entries=git('cat-file','--batch-all-objects','--batch-check=%(objectname) %(objecttype)').decode().splitlines()
   audit_bytes=(ROOT/'scripts/audit_public.py').read_bytes()
+  # Earlier versions of this file list the forbidden patterns too; skip only those exact blobs.
+  audit_history={line.split()[0] for line in git('rev-list','--all','--objects','--','scripts/audit_public.py').decode().splitlines() if line.endswith(' scripts/audit_public.py')}
   for entry in entries:
    oid,kind=entry.split()
    if kind not in ['blob','commit','tag']:continue
    data=git('cat-file',kind,oid)
-   if kind=='blob' and data==audit_bytes:continue
+   if kind=='blob' and (data==audit_bytes or oid in audit_history):continue
    name='git-object:'+oid
    if data.startswith(b'PK\x03\x04'):name+='.zip'
    scan(name,data);blobs+=1
