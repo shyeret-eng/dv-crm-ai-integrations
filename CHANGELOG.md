@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.1 — 2026-10-13
+- Refresh to production main, CRM AI server 1.15.1: 42 tools, 16 scopes (no new tools or scopes).
+- Schedule writes check double booking across events: a different location at the same time is refused; the same location asks for a confirmation on assign_shift.
+- get_event_equipment adds vendor logistics per section preset (sectionPresets): separate pickup and return details for a named group of sections.
+
 ## 0.5.0 — 2026-10-10
 - Refresh to production main, CRM AI server 1.14.0: 42 tools, 16 scopes.
 - Add create_event and search_venues (events.create; admins only for now). The client and venue must already exist; the AI never creates either and asks the person to add a missing one in the CRM.
