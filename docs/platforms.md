@@ -23,18 +23,18 @@ Verified October 1, 2026: the stale registration exposed 12 tools despite 11 CRM
 For developer-mode connections, Refresh metadata after server tool changes and start a new chat. Published plugin tool updates have their own review behavior; imported skills are snapshots requiring a new version. Workspace GitHub marketplace import requires an administrator's opt-in and authorization; new imports default to daily sync. Publishing this repository alone does not import or install it anywhere.
 
 ## Claude Code
-Review generated files, then from this repository:
+Build the package locally with `python3 scripts/release.py`, review the generated files, then from this repository:
 ```sh
-claude --plugin-dir ./dist/0.5.1/claude/dv-crm
+claude --plugin-dir ./dist/$(cat VERSION)/claude/dv-crm
 ```
 Use `/mcp` to authenticate. Approve only needed role-eligible scopes; avoid a duplicate connection if the same endpoint is already configured. Native manifest validation passed; runtime/OAuth has not been tested by this hub.
 
 A future marketplace install requires registration and installation. Third-party auto-update is off by default; users/admins opt in, versions must change, and host reload/new-session behavior applies. There is no marketplace manifest in this repository.
 
 ## Gemini CLI
-Review generated files, then:
+Build the package locally with `python3 scripts/release.py`, review the generated files, then:
 ```sh
-gemini extensions install ./dist/0.5.1/gemini/dv-crm
+gemini extensions install ./dist/$(cat VERSION)/gemini/dv-crm
 ```
 The extension uses httpUrl for Streamable HTTP and has no fixed includeTools list. The server governs caller exposure. Complete host OAuth consent and inspect discovery; compatibility is untested by this hub. Extensions are copied on install; use `gemini extensions update dv-crm` and restart. Auto-update is opt-in; installation does not bypass consent.
 

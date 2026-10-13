@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.5.2 — 2026-10-13
+- Stop publishing install packages: remove the old 0.3.x packages and point links to the canonical skill folder. Packages can still be built locally with scripts/release.py.
+
 ## 0.5.1 — 2026-10-13
 - Refresh to production main, CRM AI server 1.15.1: 42 tools, 16 scopes (no new tools or scopes).
 - Schedule writes check double booking across events: a different location at the same time is refused; the same location asks for a confirmation on assign_shift.
