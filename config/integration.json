@@ -178,6 +178,6 @@
   },
   "evidence": {
     "reviewed": "2026-10-13",
-    "source": "Production main (MCP server 1.15.1) inspected through non-mutating Git reads; deployment is user-reported live. No live CRM payloads queried."
+    "source": "Production main (MCP server 1.15.2) inspected through non-mutating Git reads; deployment is user-reported live. No live CRM payloads queried."
   }
 }

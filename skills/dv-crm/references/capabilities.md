@@ -1,5 +1,5 @@
 # Capability snapshot · October 10, 2026
-MCP server 1.15.1, 42 tools, 16 scopes. Verified against production main source; live deployment is reported by the owner. No live records were queried for this guide. Discovered caller schemas are authoritative.
+MCP server 1.15.2, 42 tools, 16 scopes. Verified against production main source; live deployment is reported by the owner. No live records were queried for this guide. Discovered caller schemas are authoritative.
 
 | Tools | Scope |
 |---|---|
@@ -47,6 +47,6 @@ events.create (create_event, search_venues) is for admins only for now; it also 
 ## Write limits per hour
 Tasks, approvals and event status: 30 per connection, 60 per person. Shift changes, quote building and equipment sources: 60 per connection, 120 per person. Previews that change nothing do not count as writes. Event creation: one event per person per hour; previews and refused attempts do not count.
 
-Activity dates use New York (up to seven days); inventory ranges support up to ten IDs/31 days. Paginated lists and Needs Attention counts may exceed displayed samples. Shift hours must be valid before staffing: invalid windows are refused, and find_available_crew reports crew blocked by an invalid assigned window. Labor budget and quote actual labor use paid hours (minimum call, shifts up to 1 hour apart joined, overtime, double time and flat day rates), so cost is not always hours times rate. Needs Attention card transaction counts follow each card's start date, and Old Westbury requests dismissed by an administrator no longer count as pending attention. A task request or task edit request also notifies reviewers in the Team app.
+Activity dates use New York (up to seven days); inventory ranges support up to ten IDs/31 days. Paginated lists and Needs Attention counts may exceed displayed samples. Shift hours must be valid before staffing: invalid windows are refused, and find_available_crew reports crew blocked by an invalid assigned window. Labor budget and quote actual labor use paid hours (minimum call, shifts up to 1 hour apart joined, overtime, double time and flat day rates), so cost is not always hours times rate. Needs Attention card transaction counts follow each card's start date and include charges the bank feed mislabels as a card payment, and Old Westbury requests dismissed by an administrator no longer count as pending attention. A task request or task edit request also notifies reviewers in the Team app.
 
 Reads can record logs and reconcile statuses internally; inventory reads do not reserve stock.

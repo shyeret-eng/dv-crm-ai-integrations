@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.5.3 — 2026-10-13
+- Refresh to CRM AI server 1.15.2: Needs Attention card transaction counts now include charges the bank feed mislabels as a card payment. No new tools or scopes.
+
 ## 0.5.2 — 2026-10-13
 - Stop publishing install packages: remove the old 0.3.x packages and point links to the canonical skill folder. Packages can still be built locally with scripts/release.py.
 
