@@ -18,7 +18,8 @@
     "equipment.write",
     "labor.finance",
     "schedule.write",
-    "events.create"
+    "events.create",
+    "production.write"
   ],
   "tools": {
     "list_events": "events.read",
@@ -62,7 +63,11 @@
     "create_shifts": "schedule.write",
     "update_shift_times": "schedule.write",
     "create_event": "events.create",
-    "search_venues": "events.create"
+    "search_venues": "events.create",
+    "get_production_schedule": "events.read",
+    "add_production_rows": "production.write",
+    "update_production_row": "production.write",
+    "remove_production_row": "production.write"
   },
   "toolKinds": {
     "list_events": "read",
@@ -106,7 +111,11 @@
     "create_shifts": "scheduleWrite",
     "update_shift_times": "scheduleWrite",
     "create_event": "eventCreate",
-    "search_venues": "read"
+    "search_venues": "read",
+    "get_production_schedule": "read",
+    "add_production_rows": "scheduleWrite",
+    "update_production_row": "scheduleWrite",
+    "remove_production_row": "scheduleWrite"
   },
   "roleEligibleScopes": {
     "admin": [
@@ -125,7 +134,8 @@
       "equipment.write",
       "labor.finance",
       "schedule.write",
-      "events.create"
+      "events.create",
+      "production.write"
     ],
     "manager": [
       "events.read",
@@ -141,7 +151,8 @@
       "equipment.read",
       "equipment.write",
       "labor.finance",
-      "schedule.write"
+      "schedule.write",
+      "production.write"
     ],
     "manager_sensitive": [
       "events.read",
@@ -157,7 +168,8 @@
       "equipment.read",
       "equipment.write",
       "labor.finance",
-      "schedule.write"
+      "schedule.write",
+      "production.write"
     ],
     "warehouse_manager": [
       "events.read",
@@ -177,7 +189,7 @@
     ]
   },
   "evidence": {
-    "reviewed": "2026-10-13",
-    "source": "Production main (MCP server 1.15.2) inspected through non-mutating Git reads; deployment is user-reported live. No live CRM payloads queried."
+    "reviewed": "2026-10-15",
+    "source": "Production main (MCP server 1.18.1) inspected through non-mutating Git reads; deployment is user-reported live. No live CRM payloads queried."
   }
 }

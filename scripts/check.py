@@ -11,7 +11,7 @@ def version():
 def check(schema=False, generated=True):
     ver = version()
     cfg = json.loads((ROOT / 'config/integration.json').read_text())
-    assert len(cfg['scopes']) == 16 and len(cfg['tools']) == 42
+    assert len(cfg['scopes']) == 17 and len(cfg['tools']) == 46
     assert set(cfg['tools'].values()) == set(cfg['scopes'])
     assert cfg['tools']['get_whats_new'] == 'events.read'
     assert cfg['tools']['remove_quote_line'] == 'quotes.write'
@@ -20,8 +20,10 @@ def check(schema=False, generated=True):
     assert 'quotes.read' in cfg['roleEligibleScopes']['warehouse_manager']
     assert 'quotes.write' not in cfg['roleEligibleScopes']['warehouse_manager']
     assert 'equipment.read' in cfg['roleEligibleScopes']['warehouse_manager']
-    assert all(not {'equipment.write','labor.finance','schedule.write'} & set(cfg['roleEligibleScopes'][r]) for r in ['warehouse_manager','user'])
+    assert all(not {'equipment.write','labor.finance','schedule.write','production.write'} & set(cfg['roleEligibleScopes'][r]) for r in ['warehouse_manager','user'])
     assert cfg['roleEligibleScopes']['admin'].count('events.create') == 1 and all('events.create' not in s for r,s in cfg['roleEligibleScopes'].items() if r != 'admin')
+    assert cfg['tools']['get_production_schedule'] == 'events.read' and cfg['tools']['remove_production_row'] == 'production.write'
+    assert [r for r,s in cfg['roleEligibleScopes'].items() if 'production.write' in s] == ['admin','manager','manager_sensitive']
     assert cfg['endpoint'].startswith('https://')
     skill = ROOT / 'skills/dv-crm/SKILL.md'
     content = skill.read_text()

@@ -1,9 +1,9 @@
-# Capability snapshot · October 10, 2026
-MCP server 1.15.2, 42 tools, 16 scopes. Verified against production main source; live deployment is reported by the owner. No live records were queried for this guide. Discovered caller schemas are authoritative.
+# Capability snapshot · October 15, 2026
+MCP server 1.18.1, 46 tools, 17 scopes. Verified against production main source; live deployment is reported by the owner. No live records were queried for this guide. Discovered caller schemas are authoritative.
 
 | Tools | Scope |
 |---|---|
-| get_whats_new, list_events, get_event | events.read |
+| get_whats_new, list_events, get_event, get_production_schedule | events.read |
 | set_event_status | events.status |
 | list_activity | activity.read |
 | list_tasks, get_task, list_task_assignees | tasks.read |
@@ -19,18 +19,19 @@ MCP server 1.15.2, 42 tools, 16 scopes. Verified against production main source;
 | get_labor_budget, list_labor_budgets | labor.finance |
 | assign_shift, create_shifts, update_shift_times | schedule.write |
 | create_event, search_venues | events.create |
+| add_production_rows, update_production_row, remove_production_row | production.write |
 
 ## Role eligibility
 
-All five roles can hold events.read, tasks.read, tasks.write, attention.read; this includes get_whats_new. Additional scopes:
+All five roles can hold events.read, tasks.read, tasks.write, attention.read; this includes get_whats_new and get_production_schedule. Additional scopes:
 
-| Role | events.status | activity.read | inventory.read | schedule.read | quotes.read | quotes.write | clients.read | equipment.read | equipment.write | labor.finance | schedule.write | events.create |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| admin | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
-| manager | Yes | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | No |
-| manager_sensitive | Yes | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | No |
-| warehouse_manager | No | No | Yes | Yes | Yes | No | No | Yes | No | No | No | No |
-| user | No | No | No | No | No | No | No | No | No | No | No | No |
+| Role | events.status | activity.read | inventory.read | schedule.read | quotes.read | quotes.write | clients.read | equipment.read | equipment.write | labor.finance | schedule.write | events.create | production.write |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| admin | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
+| manager | Yes | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | No | Yes |
+| manager_sensitive | Yes | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | No | Yes |
+| warehouse_manager | No | No | Yes | Yes | Yes | No | No | Yes | No | No | No | No | No |
+| user | No | No | No | No | No | No | No | No | No | No | No | No | No |
 
 Eligibility is not authorization: AI access must be enabled, the connection active, and scope approved. Server discovery and every call enforce the current role/grant. The hub neither enables users nor changes access.
 
@@ -44,9 +45,15 @@ equipment.read shows each item's In-House, vendor and unassigned units, shortage
 
 events.create (create_event, search_venues) is for admins only for now; it also needs events.read, and clients.read helps find the client. create_event needs an existing client (search_clients) and venue (search_venues) and never creates either: if one is missing, stop and ask the person to add it in the CRM. It is always two steps: the first call writes nothing and returns a preview, possible duplicates (same client or venue on the same days) and a confirmationCode; only after the person's explicit yes, call again with the same input, the code and a requestKey. The event starts as Created and is never confirmed; nothing is sent to clients or crew. Bookkeeping receives the CRM's usual new-job alert (tell the person if bookkeepingAlert is failed, partial or uncertain). Day times are local to the venue; search_venues returns id, name, city and state only.
 
-## Write limits per hour
-Tasks, approvals and event status: 30 per connection, 60 per person. Shift changes, quote building and equipment sources: 60 per connection, 120 per person. Previews that change nothing do not count as writes. Event creation: one event per person per hour; previews and refused attempts do not count.
+production.write (add_production_rows, update_production_row, remove_production_row) is for admin, manager and manager_sensitive; it also needs events.read, and the Edit permissions picker ticks that See along with it. get_production_schedule is a read under events.read for every role: it returns each day's run-of-show rows (type, time in and out as HH:MM in the venue time zone, location, department, vendor, action, notes, linked shift groups, updatedAt), with no crew names, contact details or money. To change rows, read first and pass the row's updatedAt as expectedUpdatedAt; a stale version is a conflict and nothing is written. add_production_rows adds up to 30 rows to a day (eventDateId or date) all or nothing, with a requestKey (reuse it only to retry). update_production_row changes one row or replaces its linked shift groups. remove_production_row is always two steps: the first call deletes nothing and returns a preview and a confirmationCode; only after the person's explicit yes, call again with the same rowId, expectedUpdatedAt and the code (ten minutes). A removed row cannot be restored with the AI tools. A time that causes an equipment conflict is refused and nothing is written. Nothing is sent to crew; when invitesOutOfDate is true, a calendar invite already sent is out of date and must be resent from the CRM.
 
-Activity dates use New York (up to seven days); inventory ranges support up to ten IDs/31 days. Paginated lists and Needs Attention counts may exceed displayed samples. Shift hours must be valid before staffing: invalid windows are refused, and find_available_crew reports crew blocked by an invalid assigned window. Labor budget and quote actual labor use paid hours (minimum call, shifts up to 1 hour apart joined, overtime, double time and flat day rates), so cost is not always hours times rate. Needs Attention card transaction counts follow each card's start date and include charges the bank feed mislabels as a card payment, and Old Westbury requests dismissed by an administrator no longer count as pending attention. A task request or task edit request also notifies reviewers in the Team app.
+Quote add-ons choose exactly one of six Event P&L groups: Labor, Equipment rental & subs, Trucking, Food, Travel & lodging or Misc. Existing add-ons keep their old type until a group is chosen with update_quote_line addonType. A Labor add-on replaces calculated labor in totals and P&L, so confirm with the person before adding one. When a quote ignores rental cost, its cost excludes both rental and custom lines; add-ons and effective labor still count.
+
+Equipment reservation dates are saved per item, falling back to the event's equipment dates; availability and get_event_equipment (reservationDates per item) use them. The last reserved day is inclusive and the equipment is free the next day. Edit reservation dates in the CRM, not through an AI tool. A saved equipment plan (dates and sources saved in the CRM before stock is reserved) holds no stock: resolve shortages before reserving.
+
+## Write limits per hour
+Tasks, approvals and event status: 30 per connection, 60 per person. Shift changes, production schedule changes, quote building and equipment sources: 60 per connection, 120 per person. Previews that change nothing do not count as writes. Event creation: one event per person per hour; previews and refused attempts do not count.
+
+Activity dates use New York (up to seven days); inventory ranges support up to ten IDs/31 days. Paginated lists and Needs Attention counts may exceed displayed samples. Shift hours must be valid before staffing: invalid windows are refused, and find_available_crew reports crew blocked by an invalid assigned window. Labor budget and quote actual labor use paid hours (minimum call, shifts up to 1 hour apart joined, overtime, double time and flat day rates), so cost is not always hours times rate. Needs Attention card transaction counts follow each card's start date and include charges the bank feed mislabels as a card payment but skip duplicate charges from an old standalone card whose charges now show on its parent card, and Old Westbury requests dismissed by an administrator no longer count as pending attention. A task request or task edit request also notifies reviewers in the Team app.
 
 Reads can record logs and reconcile statuses internally; inventory reads do not reserve stock.

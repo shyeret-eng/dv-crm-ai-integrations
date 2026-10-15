@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.6.0 — 2026-10-15
+- Refresh to production main, CRM AI server 1.18.1: 46 tools, 17 scopes.
+- Add the production schedule: get_production_schedule (events.read, every role) and add_production_rows, update_production_row, remove_production_row (new scope production.write; admin, manager, manager_sensitive; also needs events.read). Changes pass the row's updatedAt as expectedUpdatedAt, use HH:MM venue-time times and a requestKey for retries; equipment conflicts are refused; removal is always two steps (preview, explicit yes, confirmation code) and cannot be undone with the AI tools. Nothing is sent to crew; invitesOutOfDate means resend the invite from the CRM.
+- 1.16.0: quote add-ons require one of six Event P&L groups; ignoring rental cost also excludes custom lines from quote cost.
+- 1.17.0 and 1.17.1: equipment uses per-item reservation dates (last day inclusive, edited only in the CRM); a saved equipment plan holds no stock.
+- 1.18.1: Needs Attention card counts skip duplicate charges from an old standalone card.
+- Edit permissions is now grouped, with "Turn on everything my role allows", "New" badges and an "N more permissions available" note; ticking a Change permission also ticks the See it needs. Guidance updated.
+- Update the role/tool matrix (production.write column), checks and synthetic examples.
+
 ## 0.5.3 — 2026-10-13
 - Refresh to CRM AI server 1.15.2: Needs Attention card transaction counts now include charges the bank feed mislabels as a card payment. No new tools or scopes.
 
