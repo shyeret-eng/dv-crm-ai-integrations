@@ -11,7 +11,7 @@ def version():
 def check(schema=False, generated=True):
     ver = version()
     cfg = json.loads((ROOT / 'config/integration.json').read_text())
-    assert len(cfg['scopes']) == 17 and len(cfg['tools']) == 46
+    assert len(cfg['scopes']) == 17 and len(cfg['tools']) == 49
     assert set(cfg['tools'].values()) == set(cfg['scopes'])
     assert cfg['tools']['get_whats_new'] == 'events.read'
     assert cfg['tools']['remove_quote_line'] == 'quotes.write'
@@ -24,6 +24,7 @@ def check(schema=False, generated=True):
     assert cfg['roleEligibleScopes']['admin'].count('events.create') == 1 and all('events.create' not in s for r,s in cfg['roleEligibleScopes'].items() if r != 'admin')
     assert cfg['tools']['get_production_schedule'] == 'events.read' and cfg['tools']['remove_production_row'] == 'production.write'
     assert [r for r,s in cfg['roleEligibleScopes'].items() if 'production.write' in s] == ['admin','manager','manager_sensitive']
+    assert all(cfg['tools'][t] == 'schedule.write' and cfg['toolKinds'][t] == 'scheduleWrite' for t in ['create_shift_groups','update_shift_group','delete_shift_group'])
     assert cfg['endpoint'].startswith('https://')
     skill = ROOT / 'skills/dv-crm/SKILL.md'
     content = skill.read_text()

@@ -23,6 +23,9 @@ Every name, ID, date and amount here is fictional. Use live lookup IDs, never th
 | What time is load-in for Demo Summit? | get_production_schedule with the event number; answer per day in the venue time zone; say "not set" for empty times |
 | Add a Demo Hall load-in row at 08:00 to the Demo Summit run of show | get_production_schedule → add_production_rows with eventDateId, a new requestKey and HH:MM times; report conflicts or invitesOutOfDate and say nothing was sent to crew |
 | Remove the Demo catering row | get_production_schedule → remove_production_row without a code → show the preview → explicit yes → same call with rowId, expectedUpdatedAt and the code |
+| Add a Demo Summit "Audio load-in" shift group on Oct 20, 8:00 to 12:00, with two A1 slots | get_event_schedule → create_shift_groups with date, HH:MM times, roles from list_labor_roles and a new requestKey; the slots are open; say nothing was sent |
+| Move the Demo Summit "Audio load-in" group to 9:00 to 13:00 | get_event_schedule → update_shift_group with the group's updatedAt as expectedUpdatedAt; report slotsMoved, slotsKeptOwnTimes and invitesOutOfDate |
+| Delete the empty Demo Summit "Strike" shift group | get_event_schedule → delete_shift_group without a code → show the preview → explicit yes → same call with shiftGroupId, expectedUpdatedAt and the code |
 | Approve the pending Demo task request | get_task → review_task_request without a code → show the preview → explicit yes → same call with the returned code |
 
 Synthetic get_whats_new inputs: `{}` or `{"since":"2026-09-30"}` or `{"sinceVersion":"1.0.0"}`; never combine date and version.
@@ -32,4 +35,4 @@ Synthetic draft equipment batch shape:
 {"quoteId":"demo-quote-001","requestKey":"demo-request-001","lines":[{"type":"equipment","inventoryItemId":"demo-item-001","quantity":2,"section":"Demo Equipment","position":"end"}]}
 ```
 
-For retries use the same key only for the same operation. Two-step tools (remove_quote_line, remove_production_row, review_task_request, set_equipment_sources, shift changes, create_event) change nothing on the first call: show the preview and wait for the person's explicit yes before the second call; never confirm on your own. Never insert a fabricated confirmationCode in an example or live call. “Confirm the quote and email it” is unsupported: do neither. “Set the event Completed” is unsupported: that status is automatic. Stale versions mean re-read, explain the conflict, and reassess intent.
+For retries use the same key only for the same operation. Two-step tools (remove_quote_line, remove_production_row, delete_shift_group, review_task_request, set_equipment_sources, shift changes, create_event) change nothing on the first call: show the preview and wait for the person's explicit yes before the second call; never confirm on your own. Never insert a fabricated confirmationCode in an example or live call. “Confirm the quote and email it” is unsupported: do neither. “Set the event Completed” is unsupported: that status is automatic. Stale versions mean re-read, explain the conflict, and reassess intent.

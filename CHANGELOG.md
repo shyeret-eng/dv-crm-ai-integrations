@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.0 — 2026-10-21
+- Refresh to production main, CRM AI server 1.19.0: 49 tools, 17 scopes (no new scope).
+- Add shift groups (the named staffing blocks in Schedule Management, not Production Schedule rows), scope schedule.write (also needs schedule.read; admin, manager, manager_sensitive): create_shift_groups (1 to 20 groups per call, optional open role slots up to 100, a requestKey for safe retries, overnight when end is at or before start), update_shift_group (pass the group's updatedAt as expectedUpdatedAt; slots without their own times follow the new hours, slots with their own times keep them; crew overlaps are refused) and delete_shift_group (always two steps: preview, explicit yes, confirmation code; only groups with no assigned crew). Nothing is sent; invitesOutOfDate means resend the invite from the CRM.
+- get_event_schedule shift groups now include updatedAt.
+- add_production_rows: reusing a requestKey with only part of the earlier rows is now refused instead of treated as a retry.
+- Tool counts per role: admin 49, manager 45, manager_sensitive 46, warehouse_manager 21, user 11.
+
 ## 0.6.0 — 2026-10-15
 - Refresh to production main, CRM AI server 1.18.1: 46 tools, 17 scopes.
 - Add the production schedule: get_production_schedule (events.read, every role) and add_production_rows, update_production_row, remove_production_row (new scope production.write; admin, manager, manager_sensitive; also needs events.read). Changes pass the row's updatedAt as expectedUpdatedAt, use HH:MM venue-time times and a requestKey for retries; equipment conflicts are refused; removal is always two steps (preview, explicit yes, confirmation code) and cannot be undone with the AI tools. Nothing is sent to crew; invitesOutOfDate means resend the invite from the CRM.

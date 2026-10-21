@@ -1,5 +1,5 @@
-# Capability snapshot · October 15, 2026
-MCP server 1.18.1, 46 tools, 17 scopes. Verified against production main source; live deployment is reported by the owner. No live records were queried for this guide. Discovered caller schemas are authoritative.
+# Capability snapshot · October 21, 2026
+MCP server 1.19.0, 49 tools, 17 scopes. Verified against production main source; live deployment is reported by the owner. No live records were queried for this guide. Discovered caller schemas are authoritative.
 
 | Tools | Scope |
 |---|---|
@@ -17,7 +17,7 @@ MCP server 1.18.1, 46 tools, 17 scopes. Verified against production main source;
 | get_event_equipment | equipment.read |
 | set_equipment_sources | equipment.write |
 | get_labor_budget, list_labor_budgets | labor.finance |
-| assign_shift, create_shifts, update_shift_times | schedule.write |
+| assign_shift, create_shifts, update_shift_times, create_shift_groups, update_shift_group, delete_shift_group | schedule.write |
 | create_event, search_venues | events.create |
 | add_production_rows, update_production_row, remove_production_row | production.write |
 
@@ -51,8 +51,10 @@ Quote add-ons choose exactly one of six Event P&L groups: Labor, Equipment renta
 
 Equipment reservation dates are saved per item, falling back to the event's equipment dates; availability and get_event_equipment (reservationDates per item) use them. The last reserved day is inclusive and the equipment is free the next day. Edit reservation dates in the CRM, not through an AI tool. A saved equipment plan (dates and sources saved in the CRM before stock is reserved) holds no stock: resolve shortages before reserving.
 
+Shift groups (create_shift_groups, update_shift_group, delete_shift_group; schedule.write, which also needs schedule.read; admin, manager and manager_sensitive) are the named blocks of hours for one department in the Shifts panel of Schedule Management, with role slots. They are not Production Schedule rows (the run of show). get_event_schedule shows each group with its updatedAt. create_shift_groups adds 1 to 20 groups to event days (eventDateId or date) all or nothing, each with optional open role slots (roleId from list_labor_roles and a count; at most 100 slots per call), HH:MM times in the day's venue time zone (an end at or before the start runs past midnight) and a requestKey (reuse it only to retry; a reused key with different groups is refused). update_shift_group changes one group's name, department, location or hours: pass its updatedAt as expectedUpdatedAt; slots without their own times follow the new hours and slots with their own times keep them (the answer lists both); a change that would overlap an assigned crew member's other booking is refused. delete_shift_group is always two steps: the first call deletes nothing and returns a preview and a confirmationCode; only after the person's explicit yes, call again with the same shiftGroupId, expectedUpdatedAt and the code (ten minutes). A group with any assigned crew or labor company cannot be deleted; a deleted group cannot be restored with the AI tools. Nothing is sent; when invitesOutOfDate is true, a calendar invite already sent is out of date and must be resent from the CRM. add_production_rows now refuses a reused requestKey that carries only part of the earlier rows.
+
 ## Write limits per hour
-Tasks, approvals and event status: 30 per connection, 60 per person. Shift changes, production schedule changes, quote building and equipment sources: 60 per connection, 120 per person. Previews that change nothing do not count as writes. Event creation: one event per person per hour; previews and refused attempts do not count.
+Tasks, approvals and event status: 30 per connection, 60 per person. Shift and shift group changes, production schedule changes, quote building and equipment sources: 60 per connection, 120 per person. Previews that change nothing do not count as writes. Event creation: one event per person per hour; previews and refused attempts do not count.
 
 Activity dates use New York (up to seven days); inventory ranges support up to ten IDs/31 days. Paginated lists and Needs Attention counts may exceed displayed samples. Shift hours must be valid before staffing: invalid windows are refused, and find_available_crew reports crew blocked by an invalid assigned window. Labor budget and quote actual labor use paid hours (minimum call, shifts up to 1 hour apart joined, overtime, double time and flat day rates), so cost is not always hours times rate. Needs Attention card transaction counts follow each card's start date and include charges the bank feed mislabels as a card payment but skip duplicate charges from an old standalone card whose charges now show on its parent card, and Old Westbury requests dismissed by an administrator no longer count as pending attention. A task request or task edit request also notifies reviewers in the Team app.
 

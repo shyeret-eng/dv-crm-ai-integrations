@@ -61,6 +61,9 @@
     "find_available_crew": "schedule.read",
     "assign_shift": "schedule.write",
     "create_shifts": "schedule.write",
+    "create_shift_groups": "schedule.write",
+    "update_shift_group": "schedule.write",
+    "delete_shift_group": "schedule.write",
     "update_shift_times": "schedule.write",
     "create_event": "events.create",
     "search_venues": "events.create",
@@ -109,6 +112,9 @@
     "find_available_crew": "read",
     "assign_shift": "scheduleWrite",
     "create_shifts": "scheduleWrite",
+    "create_shift_groups": "scheduleWrite",
+    "update_shift_group": "scheduleWrite",
+    "delete_shift_group": "scheduleWrite",
     "update_shift_times": "scheduleWrite",
     "create_event": "eventCreate",
     "search_venues": "read",
@@ -189,7 +195,7 @@
     ]
   },
   "evidence": {
-    "reviewed": "2026-10-15",
-    "source": "Production main (MCP server 1.18.1) inspected through non-mutating Git reads; deployment is user-reported live. No live CRM payloads queried."
+    "reviewed": "2026-10-21",
+    "source": "Production main (MCP server 1.19.0) inspected through non-mutating Git reads; deployment is user-reported live. No live CRM payloads queried."
   }
 }
