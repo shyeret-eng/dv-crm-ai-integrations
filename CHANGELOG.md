@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.1 — 2026-10-22
+- Refresh to production main, CRM AI server 1.19.1: 49 tools, 17 scopes (unchanged).
+- Quote lines: the quote grid shows only about 15 characters of Purpose (Purpose also prints in full on the client PDF) and about 20 of Notes; the rest shows on hover. Purpose write limit is now 80 characters (Notes stays 1000). add_quote_lines and update_quote_line return textWarnings when written text runs past what the grid shows.
+
 ## 0.7.0 — 2026-10-21
 - Refresh to production main, CRM AI server 1.19.0: 49 tools, 17 scopes (no new scope).
 - Add shift groups (the named staffing blocks in Schedule Management, not Production Schedule rows), scope schedule.write (also needs schedule.read; admin, manager, manager_sensitive): create_shift_groups (1 to 20 groups per call, optional open role slots up to 100, a requestKey for safe retries, overnight when end is at or before start), update_shift_group (pass the group's updatedAt as expectedUpdatedAt; slots without their own times follow the new hours, slots with their own times keep them; crew overlaps are refused) and delete_shift_group (always two steps: preview, explicit yes, confirmation code; only groups with no assigned crew). Nothing is sent; invitesOutOfDate means resend the invite from the CRM.

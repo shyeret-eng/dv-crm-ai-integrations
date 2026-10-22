@@ -1,5 +1,5 @@
-# Capability snapshot · October 21, 2026
-MCP server 1.19.0, 49 tools, 17 scopes. Verified against production main source; live deployment is reported by the owner. No live records were queried for this guide. Discovered caller schemas are authoritative.
+# Capability snapshot · October 22, 2026
+MCP server 1.19.1, 49 tools, 17 scopes. Verified against production main source; live deployment is reported by the owner. No live records were queried for this guide. Discovered caller schemas are authoritative.
 
 | Tools | Scope |
 |---|---|

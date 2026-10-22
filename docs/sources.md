@@ -1,5 +1,5 @@
 # Sources
-Checked against production main (MCP server 1.19.0) on October 21, 2026 through non-mutating source reads. Live deployment is reported by the owner; this hub did not query business records. All 49 registered tools, 17 scopes and five role rows were derived from authoritative scope/role/tool declarations. This public repository contains descriptions, not backend source or its private history.
+Checked against production main (MCP server 1.19.1) on October 22, 2026 through non-mutating source reads. Live deployment is reported by the owner; this hub did not query business records. All 49 registered tools, 17 scopes and five role rows were derived from authoritative scope/role/tool declarations. This public repository contains descriptions, not backend source or its private history.
 
 Official packaging and host references reviewed during foundation work; recheck before installation because host behavior changes:
 
