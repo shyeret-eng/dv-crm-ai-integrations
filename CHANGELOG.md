@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.0 — 2026-10-23
+- Refresh from the supplied CRM changelog for server 1.20.0–1.21.0: 49 tools, 17 scopes and role eligibility unchanged; no new tools.
+- 1.20.0: equipment reservations support HH:MM times, a time zone and partial windows. Timed ranges are [start, end), missing times mean whole days, and same-day flips count once in inventory availability. Equipment reads show times and partials; source, quote-add and production-row checks use timed counting. Times and partial windows are edited only in the CRM.
+- 1.20.1: partial windows match stock counting (clipped to the item window and capped at held In-House units); equipment shortages and source/quote-add/quote-update warnings count other reservations during partial windows.
+- 1.21.0: get_event_equipment pages by whole item; follow nextCursor with unchanged filters until null before drawing conflict, shortage or whole-quote conclusions. Adds sections/itemIds filters, unmatchedSections, itemsOnly, itemsTotal/itemsReturned and reservationDates timeZoneVenue, reservedLines and partialsTotal; changed event, quote, filters or quote items require restarting without a cursor.
+
 ## 0.7.1 — 2026-10-22
 - Refresh to production main, CRM AI server 1.19.1: 49 tools, 17 scopes (unchanged).
 - Quote lines: the quote grid shows only about 15 characters of Purpose (Purpose also prints in full on the client PDF) and about 20 of Notes; the rest shows on hover. Purpose write limit is now 80 characters (Notes stays 1000). add_quote_lines and update_quote_line return textWarnings when written text runs past what the grid shows.

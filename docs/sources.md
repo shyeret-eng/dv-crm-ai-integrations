@@ -1,5 +1,5 @@
 # Sources
-Checked against production main (MCP server 1.19.1) on October 22, 2026 through non-mutating source reads. Live deployment is reported by the owner; this hub did not query business records. All 49 registered tools, 17 scopes and five role rows were derived from authoritative scope/role/tool declarations. This public repository contains descriptions, not backend source or its private history.
+Updated on October 23, 2026 from the supplied CRM changelog for MCP server 1.20.0–1.21.0. The 49 tools, 17 scopes and five role eligibility rows remain unchanged from the prior authoritative production source review. No production source or business records were queried for this update. This public repository contains descriptions, not backend source or its private history.
 
 Official packaging and host references reviewed during foundation work; recheck before installation because host behavior changes:
 

@@ -15,6 +15,7 @@ Every name, ID, date and amount here is fictional. Use live lookup IDs, never th
 | Remove the Demo Speaker line | Read line → removal preview → explicit human yes → second removal call |
 | Undo that line removal | list_deleted_quote_lines → user-requested restore_quote_line if restorable |
 | Send 5 Demo Lights to Demo Vendor A and 5 to Demo Vendor B | get_event_equipment → set_equipment_sources with the item's version; if needsVendorChoice, ask the user; if needsConfirmation, show the preview and wait for an explicit yes |
+| Check the large Demo Summit quote for equipment conflicts | Resolve the event/quote → get_event_equipment without item/section filters → repeat with each nextCursor and unchanged filters until nextCursor is null → summarize conflicts and shortages across all pages; if the cursor is refused, restart without it |
 | How is labor tracking on Demo Summit? | get_labor_budget; explain the gap by role, day and person (positive is over budget); list_labor_budgets for a date range |
 | What is the profit on the Demo Summit quote? | get_quote and read profitAndLoss; admins only, otherwise say it is not available |
 | Which shifts are not staffed next week? Who is free Friday 9 to 5 for A1? | list_staffing_gaps; find_available_crew (names only) |

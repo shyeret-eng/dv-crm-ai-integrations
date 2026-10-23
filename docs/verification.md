@@ -1,5 +1,5 @@
 # Verification and public audit · 0.3.1
-Source checks on October 22, 2026 (server 1.19.1) matched 49 registered tools, 17 scopes and five role eligibility rows. Production source was read without changing its checkout. Live deployment is owner-reported; no business payloads were queried.
+Documentation reviewed on October 23, 2026 against the supplied CRM changelog through server 1.21.0. The 49 registered tools, 17 scopes and five role eligibility rows are unchanged from the prior production source review. No production checkout or live business payloads were queried for this update; timed reservation and paging behavior were documented, not live-tested.
 
 Passed local schema/link/package parity checks, official portable JSON Schema validation, strict native Claude validation, reproducible ZIP/hash/path tests and unsupported-tool artifact checks. Package installation/OAuth and live write/removal/restore tests were not performed by this hub. A connected session verified hosted ChatGPT Refresh tools, read-only get_whats_new (server 1.3.1), and quote/client/schedule reads. This does not verify every generated client package.
 
