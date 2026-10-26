@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.0 — 2026-10-26
+- Refresh from the supplied CRM changelog for server 1.22.0–1.23.1: 49 tools, 17 scopes and role eligibility unchanged; no new tools.
+- 1.22.0: quotes can have their own In-House reservation dates, set in the CRM. Items without their own dates follow the quote, including items moved from a vendor to In-House; get_event_equipment reservationDates identifies the layer (item, quote or event). Stock numbers in get_event_equipment, get_quote and get_inventory_availability, and shortage checks in set_equipment_sources, add_quote_lines and update_quote_line, use these dates, including other quotes' In-House dates.
+- 1.22.1: remove_quote_line clears an item's own In-House reservation dates when its last line on the quote is removed; adding it back follows the quote's dates. restore_quote_line does not restore the old dates.
+- 1.23.0: build quotes following 1–3 of the client's recent confirmed quotes; list_quotes and search_quote_lines support exact clientId filters. Services and pass-through costs use grouped add-on lines; custom lines are physical items only. Report advisory lineTypeHints from add_quote_lines or update_quote_line, say which quote was followed, and ask about conflicts.
+- 1.23.1: get_event, get_event_schedule, get_production_schedule and list_shifts identify each day by type and id, including days sharing a date. create_event accepts Rehearsal, which is not a show day. Ambiguous create_shift_groups dates list each matching day's type and id so the person can choose eventDateId.
+
 ## 0.8.0 — 2026-10-23
 - Refresh from the supplied CRM changelog for server 1.20.0–1.21.0: 49 tools, 17 scopes and role eligibility unchanged; no new tools.
 - 1.20.0: equipment reservations support HH:MM times, a time zone and partial windows. Timed ranges are [start, end), missing times mean whole days, and same-day flips count once in inventory availability. Equipment reads show times and partials; source, quote-add and production-row checks use timed counting. Times and partial windows are edited only in the CRM.

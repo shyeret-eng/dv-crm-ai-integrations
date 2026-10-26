@@ -195,7 +195,7 @@
     ]
   },
   "evidence": {
-    "reviewed": "2026-10-23",
-    "source": "Supplied CRM changelog for MCP server 1.20.0–1.21.0, with 49 tools, 17 scopes and unchanged role eligibility carried forward from the prior production source review. No production source or live CRM payloads queried for this update."
+    "reviewed": "2026-10-26",
+    "source": "Supplied CRM changelog for MCP server 1.22.0–1.23.1, with 49 tools, 17 scopes and unchanged role eligibility carried forward from the prior production source review. No production source or live CRM payloads queried for this update."
   }
 }

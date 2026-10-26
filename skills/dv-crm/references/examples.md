@@ -12,6 +12,7 @@ Every name, ID, date and amount here is fictional. Use live lookup IDs, never th
 | Change Demo Summit to Confirm | Read event then set_event_status using fresh expectedStatus |
 | Create a task to check Demo Speaker | create_task; resolve assignees or explain everyone assignment; report approvalState |
 | Build an inactive draft with two Demo Speakers | Resolve event/item → create_draft_quote → add_quote_lines → get_quote; report warnings |
+| Build a Demo Summit quote with trucking, following the client's usual layout | Resolve the event/client → list_quotes with exact clientId → get_quote for 1–3 recent confirmed quotes → follow their layout and say which quote was followed; ask about conflicts → create_draft_quote → add_quote_lines with trucking as a Trucking add-on → get_quote; report lineTypeHints and availability warnings |
 | Remove the Demo Speaker line | Read line → removal preview → explicit human yes → second removal call |
 | Undo that line removal | list_deleted_quote_lines → user-requested restore_quote_line if restorable |
 | Send 5 Demo Lights to Demo Vendor A and 5 to Demo Vendor B | get_event_equipment → set_equipment_sources with the item's version; if needsVendorChoice, ask the user; if needsConfirmation, show the preview and wait for an explicit yes |
