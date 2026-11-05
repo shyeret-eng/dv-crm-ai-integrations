@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.0 — 2026-11-05
+- Refresh from the supplied CRM changelog for server 1.23.2–1.23.7: 49 tools, 17 scopes and role eligibility unchanged; no new tools.
+- 1.23.2 and 1.23.7: get_event, get_event_schedule and get_production_schedule list days in the same date order as the CRM. Schedule Management shows same-date, same-venue lines as one day; reads keep them separate by eventDateId.
+- 1.23.3: Dark Day joins the event day types. create_event accepts it; it is not a show day.
+- 1.23.4: a day without timed production rows takes its start and end from its shift groups.
+- 1.23.5 and 1.23.7: a Labor add-on is added to labor from role rows instead of replacing it, in quote totals, P&L and get_labor_budget, which shows a "Labor Add-ons" row.
+- 1.23.6: maintenance only; no tool changes.
+
 ## 0.9.0 — 2026-10-26
 - Refresh from the supplied CRM changelog for server 1.22.0–1.23.1: 49 tools, 17 scopes and role eligibility unchanged; no new tools.
 - 1.22.0: quotes can have their own In-House reservation dates, set in the CRM. Items without their own dates follow the quote, including items moved from a vendor to In-House; get_event_equipment reservationDates identifies the layer (item, quote or event). Stock numbers in get_event_equipment, get_quote and get_inventory_availability, and shortage checks in set_equipment_sources, add_quote_lines and update_quote_line, use these dates, including other quotes' In-House dates.
