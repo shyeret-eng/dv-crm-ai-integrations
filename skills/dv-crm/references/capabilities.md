@@ -1,5 +1,5 @@
 # Capability snapshot · October 26, 2026
-MCP server 1.24.0, 52 tools, 18 scopes. Updated from the supplied CRM changelog for 1.23.2–1.24.0; tool/scope counts and role eligibility remain unchanged from the prior source review. No live records were queried for this guide. Discovered caller schemas are authoritative.
+MCP server 1.24.0, 52 tools, 18 scopes. Updated from the supplied CRM changelog for 1.23.2–1.24.0; 1.24.0 adds events.days and three tools for admin, manager and manager_sensitive; other role eligibility is unchanged from the prior source review. No live records were queried for this guide. Discovered caller schemas are authoritative.
 
 | Tools | Scope |
 |---|---|
