@@ -1,5 +1,5 @@
-# Verification and public audit · 0.10.0
-Documentation reviewed on November 5, 2026 against the supplied CRM changelog for server 1.23.2–1.23.7. The 49 registered tools, 17 scopes and five role eligibility rows are unchanged from the prior production source review. No production checkout or live business payloads were queried for this update; day order, Dark Day, shift-based day times and the Labor add-on rule were documented, not live-tested.
+# Verification and public audit · 0.11.0
+Documentation reviewed on November 6, 2026 against the supplied CRM changelog for server 1.24.0: 52 registered tools and 18 scopes, adding events.days (admin, manager, manager_sensitive) with add_event_days, update_event_day and remove_event_day, and create_event eventType and projectManager. Other role eligibility rows are unchanged from the prior production source review. No production checkout or live business payloads were queried for this update; the new tools were documented, not live-tested from this hub.
 
 Passed local schema/link/package parity checks, official portable JSON Schema validation, strict native Claude validation, reproducible ZIP/hash/path tests and unsupported-tool artifact checks. Package installation/OAuth and live write/removal/restore tests were not performed by this hub. A connected session verified hosted ChatGPT Refresh tools, read-only get_whats_new (server 1.3.1), and quote/client/schedule reads. This does not verify every generated client package.
 

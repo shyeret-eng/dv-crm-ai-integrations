@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.0 — 2026-11-06
+- Refresh from the supplied CRM changelog for server 1.24.0: 52 tools and 18 scopes. New scope events.days for admin, manager and manager_sensitive.
+- New tools add_event_days, update_event_day and remove_event_day change days on an existing event with the CRM's rules: read revisions from get_event, moves that shift crew need the person's yes and a confirmationToken, removal is always preview then confirmationCode, and copyRowsFrom duplicates a day's production rows.
+- create_event can set eventType and projectManager; get_event and list_events show the project manager's name, and get_event days carry a revision.
+- Update the scope and role tables, checks, synthetic examples and acceptance cases.
+
 ## 0.10.0 — 2026-11-05
 - Refresh from the supplied CRM changelog for server 1.23.2–1.23.7: 49 tools, 17 scopes and role eligibility unchanged; no new tools.
 - 1.23.2 and 1.23.7: get_event, get_event_schedule and get_production_schedule list days in the same date order as the CRM. Schedule Management shows same-date, same-venue lines as one day; reads keep them separate by eventDateId.

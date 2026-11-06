@@ -117,6 +117,15 @@
         "create_event"
       ],
       "expect": "Stop and ask the person to add a missing client or venue in the CRM; never create either. Preview and possible duplicates first, explicit yes, then the second call with the code and a requestKey. Event starts as Created, nothing is sent."
+    },
+    {
+      "prompt": "Move the Demo Summit load-in one day earlier and remove the Demo Summit strike day.",
+      "tools": [
+        "get_event",
+        "update_event_day",
+        "remove_event_day"
+      ],
+      "expect": "Read revisions first. A move that shifts crew returns needsConfirmation: show it, explicit yes, then repeat with confirmationToken. Removal is preview, explicit yes, then the confirmationCode. Never confirm alone; nothing is sent."
     }
   ]
 }

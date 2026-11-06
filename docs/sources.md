@@ -1,5 +1,5 @@
 # Sources
-Updated on November 5, 2026 from the supplied CRM changelog for MCP server 1.23.2–1.23.7. The 49 tools, 17 scopes and five role eligibility rows remain unchanged from the prior authoritative production source review. No production source or business records were queried for this update. This public repository contains descriptions, not backend source or its private history.
+Updated on November 6, 2026 from the supplied CRM changelog for MCP server 1.24.0. It adds three tools and one scope (events.days for admin, manager and manager_sensitive), for 52 tools and 18 scopes; other role eligibility rows are carried forward from the prior authoritative production source review. No production source or business records were queried for this update. This public repository contains descriptions, not backend source or its private history.
 
 Official packaging and host references reviewed during foundation work; recheck before installation because host behavior changes:
 

@@ -1,5 +1,5 @@
 # Capability snapshot · October 26, 2026
-MCP server 1.23.1, 49 tools, 17 scopes. Updated from the supplied CRM changelog for 1.22.0–1.23.1; tool/scope counts and role eligibility remain unchanged from the prior source review. No live records were queried for this guide. Discovered caller schemas are authoritative.
+MCP server 1.24.0, 52 tools, 18 scopes. Updated from the supplied CRM changelog for 1.23.2–1.24.0; tool/scope counts and role eligibility remain unchanged from the prior source review. No live records were queried for this guide. Discovered caller schemas are authoritative.
 
 | Tools | Scope |
 |---|---|
@@ -20,18 +20,19 @@ MCP server 1.23.1, 49 tools, 17 scopes. Updated from the supplied CRM changelog 
 | assign_shift, create_shifts, update_shift_times, create_shift_groups, update_shift_group, delete_shift_group | schedule.write |
 | create_event, search_venues | events.create |
 | add_production_rows, update_production_row, remove_production_row | production.write |
+| add_event_days, update_event_day, remove_event_day | events.days |
 
 ## Role eligibility
 
 All five roles can hold events.read, tasks.read, tasks.write, attention.read; this includes get_whats_new and get_production_schedule. Additional scopes:
 
-| Role | events.status | activity.read | inventory.read | schedule.read | quotes.read | quotes.write | clients.read | equipment.read | equipment.write | labor.finance | schedule.write | events.create | production.write |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| admin | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
-| manager | Yes | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | No | Yes |
-| manager_sensitive | Yes | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | No | Yes |
-| warehouse_manager | No | No | Yes | Yes | Yes | No | No | Yes | No | No | No | No | No |
-| user | No | No | No | No | No | No | No | No | No | No | No | No | No |
+| Role | events.status | activity.read | inventory.read | schedule.read | quotes.read | quotes.write | clients.read | equipment.read | equipment.write | labor.finance | schedule.write | events.create | production.write | events.days |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| admin | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
+| manager | Yes | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | No | Yes | Yes |
+| manager_sensitive | Yes | No | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | No | Yes | Yes |
+| warehouse_manager | No | No | Yes | Yes | Yes | No | No | Yes | No | No | No | No | No | No |
+| user | No | No | No | No | No | No | No | No | No | No | No | No | No | No |
 
 Eligibility is not authorization: AI access must be enabled, the connection active, and scope approved. Server discovery and every call enforce the current role/grant. The hub neither enables users nor changes access.
 
@@ -45,7 +46,9 @@ Schedules expose shifts, venue-local times, role assignments and booking status;
 
 equipment.read shows each item's In-House, vendor and unassigned units, shortages and saved logistics, never prices or vendor contacts. A vendor's sectionPresets carry separate pickup and return details for a named group of quote sections (for example one truck); when any exist, answer per preset and name the sections each covers. equipment.write (set_equipment_sources) splits units between In-House, existing vendors and not assigned; the person chooses among unclear vendor names, vendors are never created, and over-allocation needs a confirmation. labor.finance (get_labor_budget, list_labor_budgets) shows labor budget against scheduled cost, including crew pay rates, never contact, tax or payment details.
 
-events.create (create_event, search_venues) is for admins only for now; it also needs events.read, and clients.read helps find the client. create_event needs an existing client (search_clients) and venue (search_venues) and never creates either: if one is missing, stop and ask the person to add it in the CRM. It is always two steps: the first call writes nothing and returns a preview, possible duplicates (same client or venue on the same days) and a confirmationCode; only after the person's explicit yes, call again with the same input, the code and a requestKey. The event starts as Created and is never confirmed; nothing is sent to clients or crew. Bookkeeping receives the CRM's usual new-job alert (tell the person if bookkeepingAlert is failed, partial or uncertain). Day times are local to the venue; search_venues returns id, name, city and state only.
+events.create (create_event, search_venues) is for admins only for now; create_event can also set eventType (one of the CRM's 12 event types) and projectManager (a crew member id or name from the CRM's Project Manager list; ambiguous or unknown names are refused with candidates, so ask the person); it also needs events.read, and clients.read helps find the client. create_event needs an existing client (search_clients) and venue (search_venues) and never creates either: if one is missing, stop and ask the person to add it in the CRM. It is always two steps: the first call writes nothing and returns a preview, possible duplicates (same client or venue on the same days) and a confirmationCode; only after the person's explicit yes, call again with the same input, the code and a requestKey. The event starts as Created and is never confirmed; nothing is sent to clients or crew. Bookkeeping receives the CRM's usual new-job alert (tell the person if bookkeepingAlert is failed, partial or uncertain). Day times are local to the venue; search_venues returns id, name, city and state only.
+
+events.days (add_event_days, update_event_day, remove_event_day) is for admin, manager and manager_sensitive and needs events.read; removal also needs the delete-days permission. Read get_event first: each day has eventDateId and revision; pass revision as expectedRevision. add_event_days adds 1–10 days to an existing event all or nothing, with a requestKey (reuse only to retry); copyRowsFrom duplicates a day's production rows, type, venue and notes but not its shift groups. update_event_day changes date, times, type, venue or notes; moving a day with shifts returns needsConfirmation with the CRM's warning and a confirmationToken and writes nothing: show it, get an explicit yes, then repeat with the token. remove_event_day is always two steps: preview with what goes away, explicit yes, then the confirmationCode; days with delivered crew invitations must be canceled in the CRM first. Days sharing a date stay separate lines. No invitations or messages are sent; report invitesOutOfDate.
 
 production.write (add_production_rows, update_production_row, remove_production_row) is for admin, manager and manager_sensitive; it also needs events.read, and the Edit permissions picker ticks that See along with it. get_production_schedule is a read under events.read for every role: it returns each day's run-of-show rows (type, time in and out as HH:MM in the venue time zone, location, department, vendor, action, notes, linked shift groups, updatedAt), with no crew names, contact details or money. To change rows, read first and pass the row's updatedAt as expectedUpdatedAt; a stale version is a conflict and nothing is written. add_production_rows adds up to 30 rows to a day (eventDateId or date) all or nothing, with a requestKey (reuse it only to retry). update_production_row changes one row or replaces its linked shift groups. remove_production_row is always two steps: the first call deletes nothing and returns a preview and a confirmationCode; only after the person's explicit yes, call again with the same rowId, expectedUpdatedAt and the code (ten minutes). A removed row cannot be restored with the AI tools. A time that causes an equipment conflict is refused and nothing is written. Nothing is sent to crew; when invitesOutOfDate is true, a calendar invite already sent is out of date and must be resent from the CRM.
 
