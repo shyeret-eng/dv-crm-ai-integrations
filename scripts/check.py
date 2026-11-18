@@ -11,7 +11,7 @@ def version():
 def check(schema=False, generated=True):
     ver = version()
     cfg = json.loads((ROOT / 'config/integration.json').read_text())
-    assert len(cfg['scopes']) == 18 and len(cfg['tools']) == 52
+    assert len(cfg['scopes']) == 19 and len(cfg['tools']) == 55
     assert set(cfg['tools'].values()) == set(cfg['scopes'])
     assert cfg['tools']['get_whats_new'] == 'events.read'
     assert cfg['tools']['remove_quote_line'] == 'quotes.write'
@@ -27,6 +27,10 @@ def check(schema=False, generated=True):
     assert [r for r,s in cfg['roleEligibleScopes'].items() if 'events.days' in s] == ['admin','manager','manager_sensitive']
     assert all(cfg['tools'][t] == 'events.days' and cfg['toolKinds'][t] == 'scheduleWrite' for t in ['add_event_days','update_event_day','remove_event_day'])
     assert all(cfg['tools'][t] == 'schedule.write' and cfg['toolKinds'][t] == 'scheduleWrite' for t in ['create_shift_groups','update_shift_group','delete_shift_group'])
+    assert set(cfg['toolKinds']) == set(cfg['tools'])
+    assert [role for role, scopes in cfg['roleEligibleScopes'].items() if 'cards.read' in scopes] == ['admin']
+    for tool, scope, kind in [('list_shift_notes', 'schedule.read', 'read'), ('add_shift_note', 'schedule.write', 'scheduleWrite'), ('list_card_payments', 'cards.read', 'read')]:
+        assert cfg['tools'][tool] == scope and cfg['toolKinds'][tool] == kind
     assert cfg['endpoint'].startswith('https://')
     skill = ROOT / 'skills/dv-crm/SKILL.md'
     content = skill.read_text()

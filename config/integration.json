@@ -20,7 +20,8 @@
     "schedule.write",
     "events.create",
     "production.write",
-    "events.days"
+    "events.days",
+    "cards.read"
   ],
   "tools": {
     "list_events": "events.read",
@@ -74,7 +75,10 @@
     "remove_production_row": "production.write",
     "add_event_days": "events.days",
     "update_event_day": "events.days",
-    "remove_event_day": "events.days"
+    "remove_event_day": "events.days",
+    "list_shift_notes": "schedule.read",
+    "add_shift_note": "schedule.write",
+    "list_card_payments": "cards.read"
   },
   "toolKinds": {
     "list_events": "read",
@@ -128,7 +132,10 @@
     "remove_production_row": "scheduleWrite",
     "add_event_days": "scheduleWrite",
     "update_event_day": "scheduleWrite",
-    "remove_event_day": "scheduleWrite"
+    "remove_event_day": "scheduleWrite",
+    "list_shift_notes": "read",
+    "add_shift_note": "scheduleWrite",
+    "list_card_payments": "read"
   },
   "roleEligibleScopes": {
     "admin": [
@@ -149,7 +156,8 @@
       "schedule.write",
       "events.create",
       "production.write",
-      "events.days"
+      "events.days",
+      "cards.read"
     ],
     "manager": [
       "events.read",
@@ -205,7 +213,7 @@
     ]
   },
   "evidence": {
-    "reviewed": "2026-11-06",
-    "source": "Supplied CRM changelog for MCP server 1.24.0 (52 tools, 18 scopes: new events.days for admin, manager and manager_sensitive), with other role eligibility carried forward from the prior production source review. No production source or live CRM payloads queried for this update."
+    "reviewed": "2026-11-18",
+    "source": "Supplied verified CRM changelog for server 1.24.1–1.27.0: 55 tools and 19 scopes; cards.read is optional and admin-only. Other role eligibility is carried forward from the prior production source review. No production source or live business records were queried for this update."
   }
 }

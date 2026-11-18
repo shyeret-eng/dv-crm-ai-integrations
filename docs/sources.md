@@ -1,5 +1,5 @@
 # Sources
-Updated on November 6, 2026 from the supplied CRM changelog for MCP server 1.24.0. It adds three tools and one scope (events.days for admin, manager and manager_sensitive), for 52 tools and 18 scopes; other role eligibility rows are carried forward from the prior authoritative production source review. No production source or business records were queried for this update. This public repository contains descriptions, not backend source or its private history.
+Updated on November 18, 2026 from the supplied verified CRM changelog for MCP server 1.24.1–1.27.0. It adds list_shift_notes (schedule.read), add_shift_note (schedule.write) and list_card_payments (optional cards.read, admin-only), for 55 tools and 19 scopes. Other role eligibility is carried forward from the prior authoritative production source review. No production source or business records were queried for this update. This public repository contains descriptions, not backend source or its private history.
 
 Official packaging and host references reviewed during foundation work; recheck before installation because host behavior changes:
 

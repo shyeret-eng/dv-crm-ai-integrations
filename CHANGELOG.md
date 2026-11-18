@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.12.0 — 2026-11-18
+- Refresh the supplied CRM AI server 1.24.1–1.27.0 snapshot: 55 tools and 19 scopes. Add list_shift_notes, add_shift_note and optional admin-only cards.read/list_card_payments ("See card payments" in the Admin group).
+- Document existing labor company assignment and clearing, matching/refusals, booking status and the CRM-only Manually confirmed tick; companies are never created or notified.
+- Document slot-level internal notes, read-first guidance, length and duplicate safeguards, and no notifications, exports, invites or AI deletion.
+- Explain read-only card payment status/stillDue rules and warnings-first reporting; no payment or change tools.
+- Refresh significant-only invitation warnings, production schedule snapshots, reply syncing/waiting statuses, staffing gaps and Google invitation activity logging. Versions 1.26.2 and 1.26.4 add no AI tool fields or permissions.
+- Extend synthetic acceptance examples and metadata checks; regenerate matching packages. No production source or live business payloads queried.
+
 ## 0.11.0 — 2026-11-06
 - Refresh from the supplied CRM changelog for server 1.24.0: 52 tools and 18 scopes. New scope events.days for admin, manager and manager_sensitive.
 - New tools add_event_days, update_event_day and remove_event_day change days on an existing event with the CRM's rules: read revisions from get_event, moves that shift crew need the person's yes and a confirmationToken, removal is always preview then confirmationCode, and copyRowsFrom duplicates a day's production rows.

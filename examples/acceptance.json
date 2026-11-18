@@ -126,6 +126,61 @@
         "remove_event_day"
       ],
       "expect": "Read revisions first. A move that shifts crew returns needsConfirmation: show it, explicit yes, then repeat with confirmationToken. Removal is preview, explicit yes, then the confirmationCode. Never confirm alone; nothing is sent."
+    },
+    {
+      "prompt": "Assign Example Labor Company to the example load-in slot.",
+      "tools": [
+        "get_event_schedule",
+        "assign_shift"
+      ],
+      "expect": "assign_shift accepts exactly one of crewMemberId (a string or null) or laborCompany (an existing company id or name). Read the shift first and pass its fresh updatedAt as expectedUpdatedAt. Company matching ignores case, spaces and punctuation; unknown or ambiguous names are refused with up to 10 names: ask which existing company, never create one. crewMemberId null clears either crew or company; omit laborCompany when clearing. Companies are not notified. Their booking status is Confirmed only after a manager ticks Manually confirmed in the CRM, otherwise Pending (or NeedsReconfirmation after a day move); AI cannot set that tick."
+    },
+    {
+      "prompt": "Clear the company assignment from the example slot.",
+      "tools": [
+        "get_event_schedule",
+        "assign_shift"
+      ],
+      "expect": "Use fresh expectedUpdatedAt and crewMemberId null; omit laborCompany. Clears crew or company, sends nothing and cannot set Manually confirmed."
+    },
+    {
+      "prompt": "Add \"Example loading route checked.\" to this one example slot.",
+      "tools": [
+        "list_shift_notes",
+        "add_shift_note"
+      ],
+      "expect": "Internal shift notes belong to one shift slot (one assignment), not the whole shift group. Read list_shift_notes (schedule.read; author first name only) before add_shift_note (schedule.write). Add one or two short sentences, at most 300 characters, saved as the connected person. Identical text by the same person on the same shift within 10 minutes is not added twice. Nobody is notified; notes stay out of exports and calendar invites. No AI note deletion is available."
+    },
+    {
+      "prompt": "Which example company cards need payment?",
+      "tools": [
+        "list_card_payments"
+      ],
+      "expect": "list_card_payments (read, optional cards.read; admins only) reads company credit cards linked in Cash Flow. Say returned warnings first, including stale bank-data warnings. Report statement balance/date, bank due date, days until due, minimum payment, last payment, stillDue and status as returned. Paid and stillDue follow the CRM Cash Flow \"Statement due\" column exactly: Paid when the statement balance is 0 or less, a bank last payment after the statement date covers it, or the bank minimum payment is 0 (nothing required now, such as a 0% APR card; not proof a payment was made). Otherwise use Overdue for a past due date, DueSoon for today or within 4 days, NoDueDate when the bank sent none (never guess), or OK. Read-only: never pay or change anything. Missing permission is not evidence there are no cards. Enable \"See card payments\" in the Admin group beside activity.read; no reconnect."
+    },
+    {
+      "prompt": "Does Example Business Card 0000 need payment with a $200 statement and $0 bank minimum?",
+      "tools": [
+        "list_card_payments"
+      ],
+      "expect": "Say warnings first. Follow returned Cash Flow Statement due status and stillDue: zero bank minimum means Paid/nothing required now, not proof of payment. Also Paid for nonpositive statement or a covering bank payment after statement date; otherwise Overdue, DueSoon today/within 4 days, NoDueDate without a bank date (never guessed), or OK. Never pay."
+    },
+    {
+      "prompt": "Add an example production row; does that require resending invitations?",
+      "tools": [
+        "get_production_schedule",
+        "add_production_rows"
+      ],
+      "expect": "Read first; use a new requestKey, reused only for the same retry. Production row edits never flag invites; next deliberate CRM send captures latest schedule. No automatic send. invitesOutOfDate means significant pending time/date/place/role/title changes only, not minor crew list or notes."
+    },
+    {
+      "prompt": "Why did the example crew slot return to waiting after a resend?",
+      "tools": [
+        "get_event_schedule",
+        "list_staffing_gaps",
+        "list_activity"
+      ],
+      "expect": "invitesOutOfDate is true only for a sent crew invitation with a significant pending time, date, place, role or title change: tell the person to resend from the CRM. Minor-only crew list or notes changes wait for the next real update and do not call for a resend. Stored crew booking status keeps syncing Google replies through minor pending changes; significant or unknown changes pause syncing. Google replies replace hand-set waiting statuses (Pending, Inquiry sent or Invite sent), while hand-set answers (Confirmed or Declined) still win. Staffing gaps follow that status. The activity log records Google invitation sends, updates, re-creations, cancellations and answers changing or returning to no answer, with trigger and reason. A resend with a different Google guest list resets the answer to waiting because Google already cleared it; an older pre-resend reply check cannot restore it."
     }
   ]
 }
